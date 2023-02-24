@@ -106,7 +106,7 @@ final class BP_Classic {
 	/**
 	 * Magic method for unsetting a plugin global variable.
 	 *
-	 * @since 1.7.0
+	 * @since 1.0.0
 	 *
 	 * @param string $key Key to unset a value for.
 	 */
