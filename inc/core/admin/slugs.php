@@ -1,23 +1,23 @@
 <?php
 /**
- * BuddyPress Admin Slug Functions.
+ * BP Classic Globals.
  *
- * @package BuddyPress
- * @subpackage CoreAdministration
- * @since 2.3.0
+ * @package bp-classic\inc\core\admin
+ * @since 1.0.0
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Renders the page mapping admin panel.
  *
- * @since 1.6.0
- * @todo Use settings API
+ * @since 1.0.0
  */
 function bp_core_admin_slugs_settings() {
-	bp_core_admin_tabbed_screen_header( __( 'BuddyPress Settings', 'buddypress' ), __( 'Pages', 'buddypress' ) );
+	bp_core_admin_tabbed_screen_header( __( 'BuddyPress Settings', 'bp-classic' ), __( 'Pages', 'bp-classic' ) );
 ?>
 
 	<div class="buddypress-body">
@@ -26,7 +26,7 @@ function bp_core_admin_slugs_settings() {
 			<?php bp_core_admin_slugs_options(); ?>
 
 			<p class="submit clear">
-				<input class="button-primary" type="submit" name="bp-admin-pages-submit" id="bp-admin-pages-submit" value="<?php esc_attr_e( 'Save Settings', 'buddypress' ) ?>"/>
+				<input class="button-primary" type="submit" name="bp-admin-pages-submit" id="bp-admin-pages-submit" value="<?php esc_attr_e( 'Save Settings', 'bp-classic' ) ?>"/>
 			</p>
 
 			<?php wp_nonce_field( 'bp-admin-pages-setup' ); ?>
@@ -40,7 +40,7 @@ function bp_core_admin_slugs_settings() {
 /**
  * Generate a list of directory pages, for use when building Components panel markup.
  *
- * @since 2.4.1
+ * @since 1.0.0
  *
  * @return array
  */
@@ -66,7 +66,7 @@ function bp_core_admin_get_directory_pages() {
 	/**
 	 * Filters the loaded components needing directory page association to a WordPress page.
 	 *
-	 * @since 1.5.0
+	 * @since 1.0.0
 	 *
 	 * @param array $directory_pages Array of available components to set associations for.
 	 */
@@ -78,14 +78,14 @@ function bp_core_admin_get_directory_pages() {
  *
  * By default, this list contains 'register' and 'activate'.
  *
- * @since 2.4.1
+ * @since 1.0.0
  *
  * @return array
  */
 function bp_core_admin_get_static_pages() {
 	$static_pages = array(
-		'register' => __( 'Register', 'buddypress' ),
-		'activate' => __( 'Activate', 'buddypress' ),
+		'register' => __( 'Register', 'bp-classic' ),
+		'activate' => __( 'Activate', 'bp-classic' ),
 	);
 
 	/**
@@ -101,9 +101,7 @@ function bp_core_admin_get_static_pages() {
 /**
  * Creates reusable markup for page setup on the Components and Pages dashboard panel.
  *
- * @package BuddyPress
- * @since 1.6.0
- * @todo Use settings API
+ * @since 1.0.0
  */
 function bp_core_admin_slugs_options() {
 
@@ -115,9 +113,9 @@ function bp_core_admin_slugs_options() {
 
 	if ( ! empty( $directory_pages ) ) : ?>
 
-		<h3><?php esc_html_e( 'Directories', 'buddypress' ); ?></h3>
+		<h3><?php esc_html_e( 'Directories', 'bp-classic' ); ?></h3>
 
-		<p><?php esc_html_e( 'Associate a WordPress Page with each BuddyPress component directory.', 'buddypress' ); ?></p>
+		<p><?php esc_html_e( 'Associate a WordPress Page with each BuddyPress component directory.', 'bp-classic' ); ?></p>
 
 		<table class="form-table">
 			<tbody>
@@ -136,15 +134,15 @@ function bp_core_admin_slugs_options() {
 							<?php echo wp_dropdown_pages( array(
 								'name'             => 'bp_pages[' . esc_attr( $name ) . ']',
 								'echo'             => false,
-								'show_option_none' => __( '- None -', 'buddypress' ),
+								'show_option_none' => __( '- None -', 'bp-classic' ),
 								'selected'         => ! empty( $existing_pages[$name] ) ? $existing_pages[$name] : false
 							) ); ?>
 
 							<?php if ( ! empty( $existing_pages[ $name ] ) && get_post( $existing_pages[ $name ] ) ) : ?>
 
 								<a href="<?php echo esc_url( get_permalink( $existing_pages[$name] ) ); ?>" class="button-secondary" target="_bp">
-									<?php esc_html_e( 'View', 'buddypress' ); ?> <span class="dashicons dashicons-external" aria-hidden="true"></span>
-									<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'buddypress' ); ?></span>
+									<?php esc_html_e( 'View', 'bp-classic' ); ?> <span class="dashicons dashicons-external" aria-hidden="true"></span>
+									<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'bp-classic' ); ?></span>
 								</a>
 
 							<?php endif; ?>
@@ -164,7 +162,7 @@ function bp_core_admin_slugs_options() {
 				 *
 				 * Allows plugins to add their own directory associations.
 				 *
-				 * @since 1.5.0
+				 * @since 1.0.0
 				 */
 				do_action( 'bp_active_external_directories' ); ?>
 
@@ -181,12 +179,12 @@ function bp_core_admin_slugs_options() {
 
 	if ( ! empty( $static_pages ) ) : ?>
 
-		<h3><?php esc_html_e( 'Registration', 'buddypress' ); ?></h3>
+		<h3><?php esc_html_e( 'Registration', 'bp-classic' ); ?></h3>
 
 		<?php if ( bp_allow_access_to_registration_pages() ) : ?>
 			<p>
-				<?php esc_html_e( 'Associate WordPress Pages with the following BuddyPress Registration pages.', 'buddypress' ); ?>
-				<?php esc_html_e( 'These pages will only be reachable by users who are not logged in.', 'buddypress' ); ?>
+				<?php esc_html_e( 'Associate WordPress Pages with the following BuddyPress Registration pages.', 'bp-classic' ); ?>
+				<?php esc_html_e( 'These pages will only be reachable by users who are not logged in.', 'bp-classic' ); ?>
 			</p>
 
 			<table class="form-table">
@@ -206,8 +204,8 @@ function bp_core_admin_slugs_options() {
 								<?php echo wp_dropdown_pages( array(
 									'name'             => 'bp_pages[' . esc_attr( $name ) . ']',
 									'echo'             => false,
-									'show_option_none' => __( '- None -', 'buddypress' ),
-									'selected'         => !empty( $existing_pages[$name] ) ? $existing_pages[$name] : false
+									'show_option_none' => __( '- None -', 'bp-classic' ),
+									'selected'         => ! empty( $existing_pages[$name] ) ? $existing_pages[$name] : false
 								) ) ?>
 
 								<?php if ( ! bp_is_root_blog() ) restore_current_blog(); ?>
@@ -222,7 +220,7 @@ function bp_core_admin_slugs_options() {
 					/**
 					 * Fires after the display of default static pages for BuddyPress setup.
 					 *
-					 * @since 1.5.0
+					 * @since 1.0.0
 					 */
 					do_action( 'bp_active_external_pages' ); ?>
 
@@ -234,11 +232,11 @@ function bp_core_admin_slugs_options() {
 					<?php
 					printf(
 						/* translators: %s: the link to the Network settings page */
-						esc_html_x( 'Registration is currently disabled. Before associating a page is allowed, please enable registration by selecting either the "User accounts may be registered" or "Both sites and user accounts can be registered" option on %s.', 'Disabled registration message for multisite config', 'buddypress' ),
+						esc_html_x( 'Registration is currently disabled. Before associating a page is allowed, please enable registration by selecting either the "User accounts may be registered" or "Both sites and user accounts can be registered" option on %s.', 'Disabled registration message for multisite config', 'bp-classic' ),
 						sprintf(
 							'<a href="%1$s">%2$s</a>',
 							esc_url( network_admin_url( 'settings.php' ) ),
-							esc_html_x( 'this page', 'Link text for the Multisite’s network settings page', 'buddypress' )
+							esc_html_x( 'this page', 'Link text for the Multisite’s network settings page', 'bp-classic' )
 						)
 					);
 					?>
@@ -248,11 +246,11 @@ function bp_core_admin_slugs_options() {
 					<?php
 					printf(
 						/* translators: %s: the link to the Site general options page */
-						esc_html_x( 'Registration is currently disabled. Before associating a page is allowed, please enable registration by clicking on the "Anyone can register" checkbox on %s.', 'Disabled registration message for regular site config', 'buddypress' ),
+						esc_html_x( 'Registration is currently disabled. Before associating a page is allowed, please enable registration by clicking on the "Anyone can register" checkbox on %s.', 'Disabled registration message for regular site config', 'bp-classic' ),
 						sprintf(
 							'<a href="%1$s">%2$s</a>',
 							esc_url( admin_url( 'options-general.php' ) ),
-							esc_html_x( 'this page', 'Link text for the Site’s general options page', 'buddypress' )
+							esc_html_x( 'this page', 'Link text for the Site’s general options page', 'bp-classic' )
 						)
 					);
 					?>
@@ -265,8 +263,7 @@ function bp_core_admin_slugs_options() {
 /**
  * Handle saving of the BuddyPress slugs.
  *
- * @since 1.6.0
- * @todo Use settings API
+ * @since 1.0.0
  */
 function bp_core_admin_slugs_setup_handler() {
 
@@ -294,3 +291,59 @@ function bp_core_admin_slugs_setup_handler() {
 	}
 }
 add_action( 'bp_admin_init', 'bp_core_admin_slugs_setup_handler' );
+
+/**
+ * Adds the "Pages" WP Admin screen.
+ *
+ * @since 1.0.0
+ *
+ * @param array $submenu_pages BuddyPress Admin sub menu pages.
+ * @return array BuddyPress Admin sub menu pages.
+ */
+function bp_classic_admin_menus( &$submenu_pages ) {
+	$settings_page = bp_core_do_network_admin() ? 'settings.php' : 'options-general.php';
+	$capability    = bp_core_do_network_admin() ? 'manage_network_options' : 'manage_options';
+
+	$bp_page_settings_page = add_submenu_page(
+		$settings_page,
+		__( 'BuddyPress Pages', 'bp-classic' ),
+		__( 'BuddyPress Pages', 'bp-classic' ),
+		$capability,
+		'bp-page-settings',
+		'bp_core_admin_slugs_settings'
+	);
+
+	$submenu_pages['settings']['bp-page-settings'] = $bp_page_settings_page;
+	add_action( "admin_head-{$bp_page_settings_page}", 'bp_core_modify_admin_menu_highlight' );
+}
+add_action( 'bp_admin_submenu_pages', 'bp_classic_admin_menus', 10, 1 );
+
+/**
+ * Removes the "Pages" submenu as it uses the BP Settings Tabbed UI.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_admin_head() {
+	$settings_page = bp_core_do_network_admin() ? 'settings.php' : 'options-general.php';
+	remove_submenu_page( $settings_page, 'bp-page-settings' );
+}
+add_action( 'bp_admin_head', 'bp_classic_admin_head', 1001 );
+
+/**
+ * Add the "Pages" submenu to the BP Settings Tabbed UI.
+ *
+ * @since 1.0.0
+ *
+ * @param array $settings_tabs BuddyPress Settings tabs.
+ * @return array BuddyPress Settings tabs.
+ */
+function bp_classic_admin_settings_tabs( $settings_tabs = array() ) {
+	$settings_tabs['1'] = array(
+		'id'   => 'bp-page-settings',
+		'href' => bp_get_admin_url( add_query_arg( array( 'page' => 'bp-page-settings' ), 'admin.php' ) ),
+		'name' => __( 'Pages', 'bp-classic' ),
+	);
+
+	return $settings_tabs;
+}
+add_filter( 'bp_core_get_admin_settings_tabs', 'bp_classic_admin_settings_tabs', 10, 1 );

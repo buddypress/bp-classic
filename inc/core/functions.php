@@ -1,14 +1,15 @@
 <?php
 /**
- * BuddyPress Common Functions.
+ * BP Classic Globals.
  *
- * @package BuddyPress
- * @subpackage Functions
- * @since 1.5.0
+ * @package bp-classic\inc\core
+ * @since 1.0.0
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Add support for a top-level ("root") component.
@@ -55,4 +56,55 @@ function bp_core_add_root_component( $slug ) {
 		$bp->loaded_components[$bp->{$slug}->slug] = $bp->{$slug}->id;
 		$bp->{$slug}->has_directory = true;
 	}
+}
+
+/**
+ * Return the domain for the root blog.
+ *
+ * Eg: http://example.com OR https://example.com
+ *
+ * @since 1.0.0
+ *
+ * @return string The domain URL for the blog.
+ */
+function bp_core_get_root_domain() {
+	$domain = bp_rewrites_get_root_url();
+
+	/**
+	 * Filters the domain for the root blog.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $domain The domain URL for the blog.
+	 */
+	return apply_filters( 'bp_core_get_root_domain', $domain );
+}
+
+/**
+ * Return the "root domain", the URL of the BP root blog.
+ *
+ * @since 1.0.0
+ *
+ * @return string URL of the BP root blog.
+ */
+function bp_get_root_domain() {
+	$domain = bp_get_root_url();
+
+	/**
+	 *  Filters the "root domain", the URL of the BP root blog.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $domain URL of the BP root blog.
+	 */
+	return apply_filters( 'bp_get_root_domain', $domain );
+}
+
+/**
+ * Output the "root domain", the URL of the BP root blog.
+ *
+ * @since 1.0.0
+ */
+function bp_root_domain() {
+	bp_root_url();
 }
