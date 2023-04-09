@@ -122,21 +122,25 @@ final class BP_Classic {
 	 *
 	 * @since 1.0.0
 	 */
-	public static function is_buddypress_active() {
-		$bp_plugin_basename   = 'buddypress/bp-loader.php';
-		$is_buddypress_active = false;
-		$sitewide_plugins     = (array) get_site_option( 'active_sitewide_plugins', array() );
+	public static function is_buddypress_supported() {
+		$bp_plugin_basename      = 'buddypress/bp-loader.php';
+		$is_buddypress_supported = false;
+		$sitewide_plugins        = (array) get_site_option( 'active_sitewide_plugins', array() );
 
 		if ( $sitewide_plugins ) {
-			$is_buddypress_active = isset( $sitewide_plugins[ $bp_plugin_basename ] );
+			$is_buddypress_supported = isset( $sitewide_plugins[ $bp_plugin_basename ] );
 		}
 
-		if ( ! $is_buddypress_active ) {
-			$plugins              = (array) get_option( 'active_plugins', array() );
-			$is_buddypress_active = in_array( $bp_plugin_basename, $plugins, true );
+		if ( ! $is_buddypress_supported ) {
+			$plugins                 = (array) get_option( 'active_plugins', array() );
+			$is_buddypress_supported = in_array( $bp_plugin_basename, $plugins, true );
 		}
 
-		return $is_buddypress_active;
+		if ( $is_buddypress_supported ) {
+			$is_buddypress_supported = version_compare( bp_get_version(), '12.0.0-alpha', '>=' );
+		}
+
+		return $is_buddypress_supported;
 	}
 
 	/**
@@ -145,7 +149,7 @@ final class BP_Classic {
 	 * @since 1.0.0
 	 */
 	public static function admin_notice() {
-		if ( self::is_buddypress_active() ) {
+		if ( self::is_buddypress_supported() ) {
 			return false;
 		}
 
@@ -155,8 +159,9 @@ final class BP_Classic {
 			'<div class="notice notice-error is-dismissible"><p>%s</p></div>',
 			sprintf(
 				/* translators: 1. is the link to the BuddyPress plugin on the WordPress.org plugin directory. */
-				esc_html__( 'BP Classic requires the %1$s plugin to be active. Please deactivate BP Classic, activate %1$s and only then, reactivate BP Classic.', 'bp-classic' ),
-				$bp_plugin_link // phpcs:ignore
+				esc_html__( 'BP Classic requires the %1$s plugin to be active and its version must be %2$s. Please deactivate BP Classic, activate a version of %1$s %2$s and only then, reactivate BP Classic.', 'bp-classic' ),
+				$bp_plugin_link, // phpcs:ignore
+				'<b>>= 12.0.0</b>' // phpcs:ignore
 			)
 		);
 	}
@@ -168,7 +173,7 @@ final class BP_Classic {
 	 */
 	public static function start() {
 		// This plugin is only usable with BuddyPress.
-		if ( ! self::is_buddypress_active() ) {
+		if ( ! self::is_buddypress_supported() ) {
 			return false;
 		}
 
