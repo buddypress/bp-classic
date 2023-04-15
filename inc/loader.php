@@ -27,5 +27,7 @@ function bp_classic_includes( $plugin_dir = '' ) {
 	if ( is_admin() ) {
 		require $path . '/core/admin/slugs.php';
 	}
+
+	require $path . '/core/filters.php';
 }
 add_action( '_bp_classic_includes', 'bp_classic_includes', 1, 1 );

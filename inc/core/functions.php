@@ -1,6 +1,6 @@
 <?php
 /**
- * BP Classic Globals.
+ * BP Classic Core Functions.
  *
  * @package bp-classic\inc\core
  * @since 1.0.0
