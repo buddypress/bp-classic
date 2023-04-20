@@ -1,6 +1,6 @@
 <?php
 /**
- * BP Classic Globals.
+ * BP Classic Admin slugs.
  *
  * @package bp-classic\inc\core\admin
  * @since 1.0.0
