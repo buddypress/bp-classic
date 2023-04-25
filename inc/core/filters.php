@@ -12,15 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Bypass BuddyPress 12.0+ slug customization to preserve the classic experience.
+ * Force BuddyPress to use the Legacy URL parser.
  *
  * @since 1.0.0
  *
- * @param string $value        An empty string.
- * @param string $default_slug The screen default slug, used by BuddyPress as a fallback.
- * @return string              The default slug.
+ * @return string The name of the Legacy URL parser.
  */
-function bp_classic_use_default_slug( $slug = '', $default_slug = '' ) {
-	return $default_slug;
+function bp_classic_use_legacy_parser() {
+	return 'legacy';
 }
-add_filter( 'bp_rewrites_pre_get_slug', 'bp_classic_use_default_slug', 10, 2 );
+add_filter( 'bp_core_get_query_parser', 'bp_classic_use_legacy_parser', 10, 0 );
