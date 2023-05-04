@@ -347,3 +347,31 @@ function bp_classic_admin_settings_tabs( $settings_tabs = array() ) {
 	return $settings_tabs;
 }
 add_filter( 'bp_core_get_admin_settings_tabs', 'bp_classic_admin_settings_tabs', 10, 1 );
+
+/**
+ * Add a contextual help the the Pages BP Settings screen.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_admin_add_contextual_help() {
+	$screen = get_current_screen();
+
+	if ( 'settings_page_bp-settings' === $screen->id ) {
+		// Help tabs.
+		$screen->add_help_tab(
+			array(
+				'id'      => 'bp-page-overview',
+				'title'   => __( 'Overview', 'bp-classic' ),
+				'content' => '<p>' . __( 'BuddyPress Components use WordPress Pages for their root directory/archive pages. You can change the page associations for each active component by using the form below.', 'bp-classic' ) . '</p>',
+			)
+		);
+
+		// Help panel - sidebar links.
+		$screen->set_help_sidebar(
+			'<p><strong>' . __( 'For more information:', 'bp-classic' ) . '</strong></p>' .
+			'<p>' . __( '<a href="https://codex.buddypress.org/getting-started/configure-components/#settings-buddypress-pages">Managing Pages</a>', 'bp-classic' ) . '</p>' .
+			'<p>' . __( '<a href="https://buddypress.org/support/">Support Forums</a>', 'bp-classic' ) . '</p>'
+		);
+	}
+}
+add_action( 'load-settings_page_bp-page-settings', 'bp_classic_admin_add_contextual_help', 10, 0 );
