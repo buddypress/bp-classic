@@ -33,7 +33,7 @@ function bp_classic_switch_directory_post_type( $post_type = '' ) {
 	// Query current directory pages.
 	$directory_pages = get_posts(
 		array(
-			'numberposts' => count( $directory_page_ids ),
+			'numberposts' => count( $directory_page_ids ), // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_numberposts
 			'post_type'   => $old_post_type,
 			'include'     => $directory_page_ids,
 		)
