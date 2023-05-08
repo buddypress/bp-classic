@@ -18,23 +18,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function bp_core_admin_slugs_settings() {
 	bp_core_admin_tabbed_screen_header( __( 'BuddyPress Settings', 'bp-classic' ), __( 'Pages', 'bp-classic' ) );
-?>
-
+	?>
 	<div class="buddypress-body">
 		<form action="" method="post" id="bp-admin-page-form">
 
 			<?php bp_core_admin_slugs_options(); ?>
 
 			<p class="submit clear">
-				<input class="button-primary" type="submit" name="bp-admin-pages-submit" id="bp-admin-pages-submit" value="<?php esc_attr_e( 'Save Settings', 'bp-classic' ) ?>"/>
+				<input class="button-primary" type="submit" name="bp-admin-pages-submit" id="bp-admin-pages-submit" value="<?php esc_attr_e( 'Save Settings', 'bp-classic' ); ?>"/>
 			</p>
 
 			<?php wp_nonce_field( 'bp-admin-pages-setup' ); ?>
 
 		</form>
 	</div>
-
-<?php
+	<?php
 }
 
 /**
@@ -45,23 +43,21 @@ function bp_core_admin_slugs_settings() {
  * @return array
  */
 function bp_core_admin_get_directory_pages() {
-	$bp = buddypress();
+	$bp              = buddypress();
 	$directory_pages = array();
 
 	// Loop through loaded components and collect directories.
 	if ( is_array( $bp->loaded_components ) ) {
-		foreach( $bp->loaded_components as $component_slug => $component_id ) {
+		foreach ( $bp->loaded_components as $component_slug => $component_id ) {
 
 			// Only components that need directories should be listed here.
-			if ( isset( $bp->{$component_id} ) && !empty( $bp->{$component_id}->has_directory ) ) {
+			if ( isset( $bp->{$component_id} ) && ! empty( $bp->{$component_id}->has_directory ) ) {
 
 				// The component->name property was introduced in BP 1.5, so we must provide a fallback.
-				$directory_pages[$component_id] = !empty( $bp->{$component_id}->name ) ? $bp->{$component_id}->name : ucwords( $component_id );
+				$directory_pages[ $component_id ] = ! empty( $bp->{$component_id}->name ) ? $bp->{$component_id}->name : ucwords( $component_id );
 			}
 		}
 	}
-
-	/** Directory Display *****************************************************/
 
 	/**
 	 * Filters the loaded components needing directory page association to a WordPress page.
@@ -111,7 +107,8 @@ function bp_core_admin_slugs_options() {
 	// Set up an array of components (along with component names) that have directory pages.
 	$directory_pages = bp_core_admin_get_directory_pages();
 
-	if ( ! empty( $directory_pages ) ) : ?>
+	if ( ! empty( $directory_pages ) ) :
+		?>
 
 		<h3><?php esc_html_e( 'Directories', 'bp-classic' ); ?></h3>
 
@@ -124,30 +121,44 @@ function bp_core_admin_slugs_options() {
 
 					<tr valign="top">
 						<th scope="row">
-							<label for="bp_pages[<?php echo esc_attr( $name ) ?>]"><?php echo esc_html( $label ) ?></label>
+							<label for="bp_pages[<?php echo esc_attr( $name ); ?>]"><?php echo esc_html( $label ); ?></label>
 						</th>
 
 						<td>
 
-							<?php if ( ! bp_is_root_blog() ) switch_to_blog( bp_get_root_blog_id() ); ?>
+							<?php
+							if ( ! bp_is_root_blog() ) {
+								switch_to_blog( bp_get_root_blog_id() );
+							}
 
-							<?php echo wp_dropdown_pages( array(
-								'name'             => 'bp_pages[' . esc_attr( $name ) . ']',
-								'echo'             => false,
-								'show_option_none' => __( '- None -', 'bp-classic' ),
-								'selected'         => ! empty( $existing_pages[$name] ) ? $existing_pages[$name] : false
-							) ); ?>
+							$selected = false;
+							if ( ! empty( $existing_pages[ $name ] ) ) {
+								$selected = $existing_pages[ $name ];
+							}
 
-							<?php if ( ! empty( $existing_pages[ $name ] ) && get_post( $existing_pages[ $name ] ) ) : ?>
+							wp_dropdown_pages(
+								array(
+									'name'             => 'bp_pages[' . esc_attr( $name ) . ']',
+									'show_option_none' => esc_attr__( '- None -', 'bp-classic' ),
+									'selected'         => esc_attr( $selected ),
+								)
+							);
 
-								<a href="<?php echo esc_url( get_permalink( $existing_pages[$name] ) ); ?>" class="button-secondary" target="_bp">
+							if ( ! empty( $existing_pages[ $name ] ) && get_post( $existing_pages[ $name ] ) ) :
+								?>
+
+								<a href="<?php echo esc_url( get_permalink( $existing_pages[ $name ] ) ); ?>" class="button-secondary" target="_bp">
 									<?php esc_html_e( 'View', 'bp-classic' ); ?> <span class="dashicons dashicons-external" aria-hidden="true"></span>
 									<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'bp-classic' ); ?></span>
 								</a>
 
-							<?php endif; ?>
+								<?php
+								endif;
 
-							<?php if ( ! bp_is_root_blog() ) restore_current_blog(); ?>
+							if ( ! bp_is_root_blog() ) {
+								restore_current_blog();
+							}
+							?>
 
 						</td>
 					</tr>
@@ -164,20 +175,19 @@ function bp_core_admin_slugs_options() {
 				 *
 				 * @since 1.0.0
 				 */
-				do_action( 'bp_active_external_directories' ); ?>
+				do_action( 'bp_active_external_directories' );
+				?>
 
 			</tbody>
 		</table>
 
-	<?php
-
-	endif;
-
-	/** Static Display ********************************************************/
+		<?php
+		endif;
 
 	$static_pages = bp_core_admin_get_static_pages();
 
-	if ( ! empty( $static_pages ) ) : ?>
+	if ( ! empty( $static_pages ) ) :
+		?>
 
 		<h3><?php esc_html_e( 'Registration', 'bp-classic' ); ?></h3>
 
@@ -194,22 +204,32 @@ function bp_core_admin_slugs_options() {
 
 						<tr valign="top">
 							<th scope="row">
-								<label for="bp_pages[<?php echo esc_attr( $name ) ?>]"><?php echo esc_html( $label ) ?></label>
+								<label for="bp_pages[<?php echo esc_attr( $name ); ?>]"><?php echo esc_html( $label ); ?></label>
 							</th>
 
 							<td>
+								<?php
+								if ( ! bp_is_root_blog() ) {
+									switch_to_blog( bp_get_root_blog_id() );
+								}
 
-								<?php if ( ! bp_is_root_blog() ) switch_to_blog( bp_get_root_blog_id() ); ?>
+								$selected = false;
+								if ( ! empty( $existing_pages[ $name ] ) ) {
+									$selected = $existing_pages[ $name ];
+								}
 
-								<?php echo wp_dropdown_pages( array(
-									'name'             => 'bp_pages[' . esc_attr( $name ) . ']',
-									'echo'             => false,
-									'show_option_none' => __( '- None -', 'bp-classic' ),
-									'selected'         => ! empty( $existing_pages[$name] ) ? $existing_pages[$name] : false
-								) ) ?>
+								wp_dropdown_pages(
+									array(
+										'name'             => 'bp_pages[' . esc_attr( $name ) . ']',
+										'show_option_none' => esc_attr__( '- None -', 'bp-classic' ),
+										'selected'         => esc_attr( $selected ),
+									)
+								);
 
-								<?php if ( ! bp_is_root_blog() ) restore_current_blog(); ?>
-
+								if ( ! bp_is_root_blog() ) {
+									restore_current_blog();
+								}
+								?>
 							</td>
 						</tr>
 
@@ -222,7 +242,8 @@ function bp_core_admin_slugs_options() {
 					 *
 					 * @since 1.0.0
 					 */
-					do_action( 'bp_active_external_pages' ); ?>
+					do_action( 'bp_active_external_pages' );
+					?>
 
 				</tbody>
 			</table>
@@ -255,8 +276,9 @@ function bp_core_admin_slugs_options() {
 					);
 					?>
 				</p>
-			<?php endif; ?>
-		<?php endif;
+				<?php
+			endif;
+		endif;
 	endif;
 }
 
@@ -275,22 +297,30 @@ function bp_core_admin_slugs_setup_handler() {
 		// Then, update the directory pages.
 		if ( isset( $_POST['bp_pages'] ) ) {
 			$valid_pages = array_merge( bp_core_admin_get_directory_pages(), bp_core_admin_get_static_pages() );
+			$bp_pages    = array_map( 'absint', wp_unslash( $_POST['bp_pages'] ) );
 
 			$new_directory_pages = array();
-			foreach ( (array) $_POST['bp_pages'] as $key => $value ) {
+			foreach ( (array) $bp_pages as $key => $value ) {
 				if ( isset( $valid_pages[ $key ] ) ) {
-					$new_directory_pages[ $key ] = (int) $value;
+					$new_directory_pages[ $key ] = $value;
 				}
 			}
 			bp_core_update_directory_page_ids( $new_directory_pages );
 		}
 
-		$base_url = bp_get_admin_url( add_query_arg( array( 'page' => 'bp-page-settings', 'updated' => 'true' ), 'admin.php' ) );
+		$base_url = bp_get_admin_url(
+			add_query_arg(
+				array(
+					'page'    => 'bp-page-settings',
+					'updated' => 'true',
+				),
+				'admin.php'
+			)
+		);
 
-		wp_redirect( $base_url );
+		wp_safe_redirect( $base_url );
 	}
 }
-add_action( 'bp_admin_init', 'bp_core_admin_slugs_setup_handler' );
 
 /**
  * Adds the "Pages" WP Admin screen.
@@ -298,7 +328,6 @@ add_action( 'bp_admin_init', 'bp_core_admin_slugs_setup_handler' );
  * @since 1.0.0
  *
  * @param array $submenu_pages BuddyPress Admin sub menu pages.
- * @return array BuddyPress Admin sub menu pages.
  */
 function bp_classic_admin_menus( &$submenu_pages ) {
 	$settings_page = bp_core_do_network_admin() ? 'settings.php' : 'options-general.php';
@@ -315,6 +344,7 @@ function bp_classic_admin_menus( &$submenu_pages ) {
 
 	$submenu_pages['settings']['bp-page-settings'] = $bp_page_settings_page;
 	add_action( "admin_head-{$bp_page_settings_page}", 'bp_core_modify_admin_menu_highlight' );
+	add_action( "load-{$bp_page_settings_page}", 'bp_classic_admin_pages_load' );
 }
 add_action( 'bp_admin_submenu_pages', 'bp_classic_admin_menus', 10, 1 );
 
@@ -356,22 +386,29 @@ add_filter( 'bp_core_get_admin_settings_tabs', 'bp_classic_admin_settings_tabs',
 function bp_classic_admin_add_contextual_help() {
 	$screen = get_current_screen();
 
-	if ( 'settings_page_bp-settings' === $screen->id ) {
-		// Help tabs.
-		$screen->add_help_tab(
-			array(
-				'id'      => 'bp-page-overview',
-				'title'   => __( 'Overview', 'bp-classic' ),
-				'content' => '<p>' . __( 'BuddyPress Components use WordPress Pages for their root directory/archive pages. You can change the page associations for each active component by using the form below.', 'bp-classic' ) . '</p>',
-			)
-		);
+	// Help tabs.
+	$screen->add_help_tab(
+		array(
+			'id'      => 'bp-page-overview',
+			'title'   => __( 'Overview', 'bp-classic' ),
+			'content' => '<p>' . __( 'BuddyPress Components use WordPress Pages for their root directory/archive pages. You can change the page associations for each active component by using the form below.', 'bp-classic' ) . '</p>',
+		)
+	);
 
-		// Help panel - sidebar links.
-		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'For more information:', 'bp-classic' ) . '</strong></p>' .
-			'<p>' . __( '<a href="https://codex.buddypress.org/getting-started/configure-components/#settings-buddypress-pages">Managing Pages</a>', 'bp-classic' ) . '</p>' .
-			'<p>' . __( '<a href="https://buddypress.org/support/">Support Forums</a>', 'bp-classic' ) . '</p>'
-		);
-	}
+	// Help panel - sidebar links.
+	$screen->set_help_sidebar(
+		'<p><strong>' . __( 'For more information:', 'bp-classic' ) . '</strong></p>' .
+		'<p>' . __( '<a href="https://codex.buddypress.org/getting-started/configure-components/#settings-buddypress-pages">Managing Pages</a>', 'bp-classic' ) . '</p>' .
+		'<p>' . __( '<a href="https://buddypress.org/support/">Support Forums</a>', 'bp-classic' ) . '</p>'
+	);
 }
-add_action( 'load-settings_page_bp-page-settings', 'bp_classic_admin_add_contextual_help', 10, 0 );
+
+/**
+ * Load BP Pages settings screen.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_admin_pages_load() {
+	bp_classic_admin_add_contextual_help();
+	bp_core_admin_slugs_setup_handler();
+}

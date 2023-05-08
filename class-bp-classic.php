@@ -167,6 +167,27 @@ final class BP_Classic {
 	}
 
 	/**
+	 * Switch BP Directory pages post type, if needed.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function switch_directory_post_type() {
+		if ( ! self::is_buddypress_supported() ) {
+			return;
+		}
+
+		require_once plugin_dir_path( __FILE__ ) . 'inc/migrate.php';
+
+		$post_type = 'page';
+		if ( 'page' === bp_core_get_directory_post_type() ) {
+			$post_type = 'buddypress';
+		}
+
+		// Run the switcher.
+		bp_classic_switch_directory_post_type( $post_type );
+	}
+
+	/**
 	 * Return an instance of this class.
 	 *
 	 * @since 1.0.0
@@ -200,3 +221,10 @@ add_action( 'bp_loaded', 'bp_classic', -1 );
 
 // Displays a notice to inform BP Classic needs to be activated after BuddyPress.
 add_action( 'admin_notices', array( 'BP_Classic', 'admin_notice' ) );
+
+/*
+ * Use Activation and Deactivation to switch directory pages post type between WP pages
+ * and BuddyPress one.
+ */
+register_activation_hook( __FILE__, array( 'BP_Classic', 'switch_directory_post_type' ) );
+register_deactivation_hook( __FILE__, array( 'BP_Classic', 'switch_directory_post_type' ) );
