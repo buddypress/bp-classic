@@ -12,6 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Force BuddyPress directories to use the `page` post type.
+ *
+ * @since 1.0.0
+ *
+ * @return string The name of the post type to use for BuddyPress directories.
+ */
+function bp_classic_get_directory_post_type() {
+	return 'page';
+}
+add_filter( 'bp_core_get_directory_post_type', 'bp_classic_get_directory_post_type', 10, 0 );
+
+/**
  * Force BuddyPress to use the Legacy URL parser.
  *
  * @since 1.0.0
