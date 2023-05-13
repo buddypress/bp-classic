@@ -48,12 +48,12 @@ class BP_Classic_Nouveau_Object_Nav_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Displays the output, the button to post new support topics
+	 * Displays the output, the button to post new support topics.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed   $args     Arguments
-	 * @param unknown $instance
+	 * @param mixed $args     Arguments.
+	 * @param array $instance Settings for the current widget instance.
 	 */
 	public function widget( $args, $instance ) {
 		if ( ! is_buddypress() || bp_is_group_create() ) {
@@ -101,10 +101,10 @@ class BP_Classic_Nouveau_Object_Nav_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . $title . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		if ( bp_is_user() ) {
@@ -115,16 +115,16 @@ class BP_Classic_Nouveau_Object_Nav_Widget extends WP_Widget {
 			bp_get_template_part( 'common/nav/directory-nav' );
 		}
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
-	 * Update the new support topic widget options (title)
+	 * Update the new support topic widget options (title).
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $new_instance The new instance options
-	 * @param array $old_instance The old instance options
+	 * @param array $new_instance The new instance options.
+	 * @param array $old_instance The old instance options.
 	 *
 	 * @return array the instance
 	 */
@@ -140,9 +140,7 @@ class BP_Classic_Nouveau_Object_Nav_Widget extends WP_Widget {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param $instance Instance
-	 *
-	 * @return string HTML Output
+	 * @param array $instance The settings for the particular instance of the widget.
 	 */
 	public function form( $instance ) {
 		$defaults = array(
@@ -159,8 +157,8 @@ class BP_Classic_Nouveau_Object_Nav_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $bp_nouveau_widget_title, true ); ?> id="<?php echo $this->get_field_id( 'bp_nouveau_widget_title' ); ?>" name="<?php echo $this->get_field_name( 'bp_nouveau_widget_title' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'bp_nouveau_widget_title' ); ?>"><?php esc_html_e( 'Include navigation title', 'bp-classic' ); ?></label>
+			<input class="checkbox" type="checkbox" <?php checked( $bp_nouveau_widget_title, true ); ?> id="<?php echo esc_attr( $this->get_field_id( 'bp_nouveau_widget_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'bp_nouveau_widget_title' ) ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'bp_nouveau_widget_title' ) ); ?>"><?php esc_html_e( 'Include navigation title', 'bp-classic' ); ?></label>
 		</p>
 
 		<?php

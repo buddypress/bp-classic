@@ -49,33 +49,46 @@ add_action( 'bp_register_widgets', 'bp_classic_friends_register_widgets' );
  * @since 1.0.0
  */
 function bp_classic_friends_ajax_widget() {
-
 	check_ajax_referer( 'bp_core_widget_friends' );
 
-	switch ( $_POST['filter'] ) {
+	$filter = 'active';
+	if ( isset( $_POST['filter'] ) ) {
+		$filter = sanitize_text_field( wp_unslash( $_POST['filter'] ) );
+	}
+
+	switch ( $filter ) {
 		case 'newest-friends':
 			$type = 'newest';
-			break;
-
-		case 'recently-active-friends':
-			$type = 'active';
 			break;
 
 		case 'popular-friends':
 			$type = 'popular';
 			break;
+
+		case 'recently-active-friends':
+		default:
+			$type = 'active';
+			break;
+	}
+
+	$max_friends = 5;
+	if ( isset( $_POST['max-friends'] ) ) {
+		$max_friends = absint( wp_unslash( $_POST['max-friends'] ) );
 	}
 
 	$members_args = array(
 		'user_id'         => bp_displayed_user_id(),
 		'type'            => $type,
-		'max'             => absint( $_POST['max-friends'] ),
+		'max'             => $max_friends,
 		'populate_extras' => 1,
 	);
 
 	if ( bp_has_members( $members_args ) ) : ?>
 		<?php echo '0[[SPLIT]]'; // Return valid result. TODO: remove this. ?>
-		<?php while ( bp_members() ) : bp_the_member(); ?>
+		<?php
+		while ( bp_members() ) :
+			bp_the_member();
+			?>
 			<li class="vcard">
 				<div class="item-avatar">
 					<a href="<?php bp_member_permalink(); ?>"><?php bp_member_avatar(); ?></a>
@@ -83,9 +96,9 @@ function bp_classic_friends_ajax_widget() {
 
 				<div class="item">
 					<div class="item-title fn"><a href="<?php bp_member_permalink(); ?>"><?php bp_member_name(); ?></a></div>
-					<?php if ( 'active' == $type ) : ?>
+					<?php if ( 'active' === $type ) : ?>
 						<div class="item-meta"><span class="activity" data-livestamp="<?php bp_core_iso8601_date( bp_get_member_last_active( array( 'relative' => false ) ) ); ?>"><?php bp_member_last_active(); ?></span></div>
-					<?php elseif ( 'newest' == $type ) : ?>
+					<?php elseif ( 'newest' === $type ) : ?>
 						<div class="item-meta"><span class="activity" data-livestamp="<?php bp_core_iso8601_date( bp_get_member_registered( array( 'relative' => false ) ) ); ?>"><?php bp_member_registered(); ?></span></div>
 					<?php elseif ( bp_is_active( 'friends' ) ) : ?>
 						<div class="item-meta"><span class="activity"><?php bp_member_total_friend_count(); ?></span></div>
@@ -94,11 +107,12 @@ function bp_classic_friends_ajax_widget() {
 			</li>
 		<?php endwhile; ?>
 
-	<?php else: ?>
-		<?php echo "-1[[SPLIT]]<li>"; ?>
-		<?php esc_html_e( 'There were no members found, please try another filter.', 'buddypress' ); ?>
-		<?php echo "</li>"; ?>
-	<?php endif;
+	<?php else : ?>
+		<?php echo '-1[[SPLIT]]<li>'; ?>
+		<?php esc_html_e( 'There were no members found, please try another filter.', 'bp-classic' ); ?>
+		<?php echo '</li>'; ?>
+		<?php
+	endif;
 }
 add_action( 'wp_ajax_widget_friends', 'bp_classic_friends_ajax_widget' );
 add_action( 'wp_ajax_nopriv_widget_friends', 'bp_classic_friends_ajax_widget' );

@@ -1,44 +1,47 @@
 <?php
 /**
- * BuddyPress Members Who's Online Widget.
+ * BP Classic Online members Widget class.
  *
- * @package BuddyPress
- * @subpackage MembersWidgets
+ * @package bp-classic\inc\members\classes
  * @since 1.0.0
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Who's Online Widget.
  *
- * @since 1.0.3
- * @since 9.0.0 Adds the `show_instance_in_rest` property to Widget options.
+ * @since 1.0.0
  */
 class BP_Classic_Whos_Online_Widget extends WP_Widget {
 
 	/**
 	 * Constructor method.
 	 *
-	 * @since 1.5.0
-	 * @since 9.0.0 Adds the `show_instance_in_rest` property to Widget options.
+	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$name        = _x( "(BuddyPress) Who's Online", 'widget name', 'buddypress' );
-		$description = __( 'Profile photos of online users', 'buddypress' );
-		parent::__construct( false, $name, array(
-			'description'                 => $description,
-			'classname'                   => 'widget_bp_core_whos_online_widget buddypress widget',
-			'customize_selective_refresh' => true,
-			'show_instance_in_rest'       => true,
-		) );
+		$name        = _x( "(BuddyPress) Who's Online", 'widget name', 'bp-classic' );
+		$description = __( 'Profile photos of online users', 'bp-classic' );
+		parent::__construct(
+			false,
+			$name,
+			array(
+				'description'                 => $description,
+				'classname'                   => 'widget_bp_core_whos_online_widget buddypress widget',
+				'customize_selective_refresh' => true,
+				'show_instance_in_rest'       => true,
+			)
+		);
 	}
 
 	/**
 	 * Display the Who's Online widget.
 	 *
-	 * @since 1.0.3
+	 * @since 1.0.0
 	 *
 	 * @see WP_Widget::widget() for description of parameters.
 	 *
@@ -54,8 +57,7 @@ class BP_Classic_Whos_Online_Widget extends WP_Widget {
 		/**
 		 * Filters the title of the Who's Online widget.
 		 *
-		 * @since 1.8.0
-		 * @since 2.3.0 Added 'instance' and 'id_base' to arguments passed to filter.
+		 * @since 1.0.0
 		 *
 		 * @param string $title    The widget title.
 		 * @param array  $settings The settings for the particular instance of the widget.
@@ -63,7 +65,7 @@ class BP_Classic_Whos_Online_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $settings['title'], $settings, $this->id_base );
 
-		echo $args['before_widget'] . $args['before_title'] . $title . $args['after_title'];
+		echo $args['before_widget'] . $args['before_title'] . $title . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		$max_limit   = bp_get_widget_max_count_limit( __CLASS__ );
 		$max_members = $settings['max_members'] > $max_limit ? $max_limit : (int) $settings['max_members'];
@@ -80,14 +82,16 @@ class BP_Classic_Whos_Online_Widget extends WP_Widget {
 
 		// Back up global.
 		$old_members_template = $members_template;
-
 		?>
 
 		<?php if ( bp_has_members( $members_args ) ) : ?>
 
 			<div class="avatar-block">
 
-				<?php while ( bp_members() ) : bp_the_member(); ?>
+				<?php
+				while ( bp_members() ) :
+					bp_the_member();
+					?>
 
 					<div class="item-avatar">
 						<a href="<?php bp_member_permalink(); ?>" class="bp-tooltip" data-bp-tooltip="<?php bp_member_name(); ?>"><?php bp_member_avatar(); ?></a>
@@ -97,15 +101,16 @@ class BP_Classic_Whos_Online_Widget extends WP_Widget {
 
 			</div>
 
-		<?php else: ?>
+		<?php else : ?>
 
 			<div class="widget-error">
-				<?php esc_html_e( 'There are no users currently online', 'buddypress' ); ?>
+				<?php esc_html_e( 'There are no users currently online', 'bp-classic' ); ?>
 			</div>
 
-		<?php endif; ?>
+			<?php
+		endif;
 
-		<?php echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Restore the global.
 		$members_template = $old_members_template;
@@ -125,7 +130,7 @@ class BP_Classic_Whos_Online_Widget extends WP_Widget {
 
 		$max_limit = bp_get_widget_max_count_limit( __CLASS__ );
 
-		$instance['title']       = strip_tags( $new_instance['title'] );
+		$instance['title']       = wp_strip_all_tags( $new_instance['title'] );
 		$instance['max_members'] = $new_instance['max_members'] > $max_limit ? $max_limit : intval( $new_instance['max_members'] );
 
 		return $instance;
@@ -144,25 +149,25 @@ class BP_Classic_Whos_Online_Widget extends WP_Widget {
 
 		// Get widget settings.
 		$settings    = $this->parse_settings( $instance );
-		$title       = strip_tags( $settings['title'] );
+		$title       = wp_strip_all_tags( $settings['title'] );
 		$max_members = $settings['max_members'] > $max_limit ? $max_limit : intval( $settings['max_members'] );
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">
-				<?php esc_html_e( 'Title:', 'buddypress' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+				<?php esc_html_e( 'Title:', 'bp-classic' ); ?>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
 			</label>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'max_members' ); ?>">
-				<?php esc_html_e( 'Max members to show:', 'buddypress' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'max_members' ); ?>" name="<?php echo $this->get_field_name( 'max_members' ); ?>" type="number" min="1" max="<?php echo esc_attr( $max_limit ); ?>" value="<?php echo esc_attr( $max_members ); ?>" style="width: 30%" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'max_members' ) ); ?>">
+				<?php esc_html_e( 'Max members to show:', 'bp-classic' ); ?>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max_members' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max_members' ) ); ?>" type="number" min="1" max="<?php echo esc_attr( $max_limit ); ?>" value="<?php echo esc_attr( $max_members ); ?>" style="width: 30%" />
 			</label>
 		</p>
 
-	<?php
+		<?php
 	}
 
 	/**
@@ -177,7 +182,7 @@ class BP_Classic_Whos_Online_Widget extends WP_Widget {
 		return bp_parse_args(
 			$instance,
 			array(
-				'title' 	  => __( "Who's Online", 'buddypress' ),
+				'title'       => __( "Who's Online", 'bp-classic' ),
 				'max_members' => 15,
 			),
 			'members_widget_settings'

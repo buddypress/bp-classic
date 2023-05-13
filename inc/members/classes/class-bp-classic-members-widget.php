@@ -1,14 +1,15 @@
 <?php
 /**
- * BuddyPress Members Widget.
+ * BP Classic Members Widget class.
  *
- * @package BuddyPress
- * @subpackage MembersWidgets
- * @since 1.0.3
+ * @package bp-classic\inc\members\classes
+ * @since 1.0.0
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Members Widget.
@@ -20,22 +21,25 @@ class BP_Classic_Members_Widget extends WP_Widget {
 	/**
 	 * Constructor method.
 	 *
-	 * @since 1.5.0
-	 * @since 9.0.0 Adds the `show_instance_in_rest` property to Widget options.
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 
 		// Setup widget name & description.
-		$name        = _x( '(BuddyPress) Members', 'widget name', 'buddypress' );
-		$description = __( 'A dynamic list of recently active, popular, and newest members', 'buddypress' );
+		$name        = _x( '(BuddyPress) Members', 'widget name', 'bp-classic' );
+		$description = __( 'A dynamic list of recently active, popular, and newest members', 'bp-classic' );
 
 		// Call WP_Widget constructor.
-		parent::__construct( false, $name, array(
-			'description'                 => $description,
-			'classname'                   => 'widget_bp_core_members_widget buddypress widget',
-			'customize_selective_refresh' => true,
-			'show_instance_in_rest'       => true,
-		) );
+		parent::__construct(
+			false,
+			$name,
+			array(
+				'description'                 => $description,
+				'classname'                   => 'widget_bp_core_members_widget buddypress widget',
+				'customize_selective_refresh' => true,
+				'show_instance_in_rest'       => true,
+			)
+		);
 
 		if ( is_customize_preview() || bp_is_widget_block_active( '', $this->id_base ) ) {
 			add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -45,7 +49,7 @@ class BP_Classic_Members_Widget extends WP_Widget {
 	/**
 	 * Enqueue scripts.
 	 *
-	 * @since 2.6.0
+	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'bp-widget-members' );
@@ -54,7 +58,7 @@ class BP_Classic_Members_Widget extends WP_Widget {
 	/**
 	 * Display the Members widget.
 	 *
-	 * @since 1.0.3
+	 * @since 1.0.0
 	 *
 	 * @see WP_Widget::widget() for description of parameters.
 	 *
@@ -90,7 +94,7 @@ class BP_Classic_Members_Widget extends WP_Widget {
 		$separator = apply_filters( 'bp_members_widget_separator', '|' );
 
 		// Output before widget HTMl, title (and maybe content before & after it).
-		echo $args['before_widget'] . $args['before_title'] . $title . $args['after_title'];
+		echo $args['before_widget'] . $args['before_title'] . $title . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		$max_limit   = bp_get_widget_max_count_limit( __CLASS__ );
 		$max_members = $settings['max_members'] > $max_limit ? $max_limit : (int) $settings['max_members'];
@@ -107,39 +111,40 @@ class BP_Classic_Members_Widget extends WP_Widget {
 
 		// Back up the global.
 		$old_members_template = $members_template;
-
 		?>
 
 		<?php if ( bp_has_members( $members_args ) ) : ?>
 
 			<div class="item-options" id="members-list-options">
-				<a href="<?php bp_members_directory_permalink(); ?>" id="newest-members" <?php if ( 'newest' === $settings['member_default'] ) : ?>class="selected"<?php endif; ?>><?php esc_html_e( 'Newest', 'buddypress' ); ?></a>
+				<a href="<?php bp_members_directory_permalink(); ?>" id="newest-members" class="<?php ( 'newest' === $settings['member_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Newest', 'bp-classic' ); ?></a>
 				<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
-				<a href="<?php bp_members_directory_permalink(); ?>" id="recently-active-members" <?php if ( 'active' === $settings['member_default'] ) : ?>class="selected"<?php endif; ?>><?php esc_html_e( 'Active', 'buddypress' ); ?></a>
+				<a href="<?php bp_members_directory_permalink(); ?>" id="recently-active-members" class="<?php ( 'active' === $settings['member_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Active', 'bp-classic' ); ?></a>
 
 				<?php if ( bp_is_active( 'friends' ) ) : ?>
 					<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
-					<a href="<?php bp_members_directory_permalink(); ?>" id="popular-members" <?php if ( 'popular' === $settings['member_default'] ) : ?>class="selected"<?php endif; ?>><?php esc_html_e( 'Popular', 'buddypress' ); ?></a>
-
+					<a href="<?php bp_members_directory_permalink(); ?>" id="popular-members" class="<?php ( 'popular' === $settings['member_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
 				<?php endif; ?>
 
 			</div>
 
 			<ul id="members-list" class="item-list" aria-live="polite" aria-relevant="all" aria-atomic="true">
 
-				<?php while ( bp_members() ) : bp_the_member(); ?>
+				<?php
+				while ( bp_members() ) :
+					bp_the_member();
+					?>
 
 					<li class="vcard">
 						<div class="item-avatar">
-							<a href="<?php bp_member_permalink() ?>" class="bp-tooltip" data-bp-tooltip="<?php bp_member_name(); ?>"><?php bp_member_avatar(); ?></a>
+							<a href="<?php bp_member_permalink(); ?>" class="bp-tooltip" data-bp-tooltip="<?php bp_member_name(); ?>"><?php bp_member_avatar(); ?></a>
 						</div>
 
 						<div class="item">
 							<div class="item-title fn"><a href="<?php bp_member_permalink(); ?>"><?php bp_member_name(); ?></a></div>
 							<div class="item-meta">
-								<?php if ( 'newest' == $settings['member_default'] ) : ?>
+								<?php if ( 'newest' === $settings['member_default'] ) : ?>
 									<span class="activity" data-livestamp="<?php bp_core_iso8601_date( bp_get_member_registered( array( 'relative' => false ) ) ); ?>"><?php bp_member_registered(); ?></span>
-								<?php elseif ( 'active' == $settings['member_default'] ) : ?>
+								<?php elseif ( 'active' === $settings['member_default'] ) : ?>
 									<span class="activity" data-livestamp="<?php bp_core_iso8601_date( bp_get_member_last_active( array( 'relative' => false ) ) ); ?>"><?php bp_member_last_active(); ?></span>
 								<?php else : ?>
 									<span class="activity"><?php bp_member_total_friend_count(); ?></span>
@@ -156,15 +161,16 @@ class BP_Classic_Members_Widget extends WP_Widget {
 
 			<input type="hidden" name="members_widget_max" id="members_widget_max" value="<?php echo esc_attr( $settings['max_members'] ); ?>" />
 
-		<?php else: ?>
+		<?php else : ?>
 
 			<div class="widget-error">
-				<?php esc_html_e( 'No one has signed up yet!', 'buddypress' ); ?>
+				<?php esc_html_e( 'No one has signed up yet!', 'bp-classic' ); ?>
 			</div>
 
-		<?php endif; ?>
+			<?php
+		endif;
 
-		<?php echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Restore the global.
 		$members_template = $old_members_template;
@@ -173,7 +179,7 @@ class BP_Classic_Members_Widget extends WP_Widget {
 	/**
 	 * Update the Members widget options.
 	 *
-	 * @since 1.0.3
+	 * @since 1.0.0
 	 *
 	 * @param array $new_instance The new instance options.
 	 * @param array $old_instance The old instance options.
@@ -184,10 +190,10 @@ class BP_Classic_Members_Widget extends WP_Widget {
 
 		$max_limit = bp_get_widget_max_count_limit( __CLASS__ );
 
-		$instance['title']          = strip_tags( $new_instance['title'] );
+		$instance['title']          = wp_strip_all_tags( $new_instance['title'] );
 		$instance['max_members']    = $new_instance['max_members'] > $max_limit ? $max_limit : intval( $new_instance['max_members'] );
-		$instance['member_default'] = strip_tags( $new_instance['member_default'] );
-		$instance['link_title']	    = ! empty( $new_instance['link_title'] );
+		$instance['member_default'] = wp_strip_all_tags( $new_instance['member_default'] );
+		$instance['link_title']     = ! empty( $new_instance['link_title'] );
 
 		return $instance;
 	}
@@ -195,70 +201,68 @@ class BP_Classic_Members_Widget extends WP_Widget {
 	/**
 	 * Output the Members widget options form.
 	 *
-	 * @since 1.0.3
+	 * @since 1.0.0
 	 *
 	 * @param array $instance Widget instance settings.
-	 * @return void
 	 */
 	public function form( $instance ) {
 		$max_limit = bp_get_widget_max_count_limit( __CLASS__ );
 
 		// Get widget settings.
 		$settings       = $this->parse_settings( $instance );
-		$title          = strip_tags( $settings['title'] );
+		$title          = wp_strip_all_tags( $settings['title'] );
 		$max_members    = $settings['max_members'] > $max_limit ? $max_limit : intval( $settings['max_members'] );
-		$member_default = strip_tags( $settings['member_default'] );
-		$link_title     = (bool) $settings['link_title']; ?>
-
+		$member_default = wp_strip_all_tags( $settings['member_default'] );
+		$link_title     = (bool) $settings['link_title'];
+		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">
-				<?php esc_html_e( 'Title:', 'buddypress' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+				<?php esc_html_e( 'Title:', 'bp-classic' ); ?>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
 			</label>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'link_title' ) ?>">
-				<input type="checkbox" name="<?php echo $this->get_field_name( 'link_title' ) ?>" id="<?php echo $this->get_field_id( 'link_title' ) ?>" value="1" <?php checked( $link_title ) ?> />
-				<?php esc_html_e( 'Link widget title to Members directory', 'buddypress' ); ?>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'link_title' ) ); ?>">
+				<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'link_title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'link_title' ) ); ?>" value="1" <?php checked( $link_title ); ?> />
+				<?php esc_html_e( 'Link widget title to Members directory', 'bp-classic' ); ?>
 			</label>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'max_members' ); ?>">
-				<?php esc_html_e( 'Max members to show:', 'buddypress' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'max_members' ); ?>" name="<?php echo $this->get_field_name( 'max_members' ); ?>" type="number" min="1" max="<?php echo esc_attr( $max_limit ); ?>" value="<?php echo esc_attr( $max_members ); ?>" style="width: 30%" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'max_members' ) ); ?>">
+				<?php esc_html_e( 'Max members to show:', 'bp-classic' ); ?>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max_members' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max_members' ) ); ?>" type="number" min="1" max="<?php echo esc_attr( $max_limit ); ?>" value="<?php echo esc_attr( $max_members ); ?>" style="width: 30%" />
 			</label>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'member_default' ) ?>"><?php esc_html_e( 'Default members to show:', 'buddypress' ); ?></label>
-			<select name="<?php echo $this->get_field_name( 'member_default' ) ?>" id="<?php echo $this->get_field_id( 'member_default' ) ?>">
-				<option value="newest"  <?php if ( 'newest'  === $member_default ) : ?>selected="selected"<?php endif; ?>><?php esc_html_e( 'Newest',  'buddypress' ); ?></option>
-				<option value="active"  <?php if ( 'active'  === $member_default ) : ?>selected="selected"<?php endif; ?>><?php esc_html_e( 'Active',  'buddypress' ); ?></option>
-				<option value="popular" <?php if ( 'popular' === $member_default ) : ?>selected="selected"<?php endif; ?>><?php esc_html_e( 'Popular', 'buddypress' ); ?></option>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'member_default' ) ); ?>"><?php esc_html_e( 'Default members to show:', 'bp-classic' ); ?></label>
+			<select name="<?php echo esc_attr( $this->get_field_name( 'member_default' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'member_default' ) ); ?>">
+				<option value="newest" <?php selected( $member_default, 'newest' ); ?>><?php esc_html_e( 'Newest', 'bp-classic' ); ?></option>
+				<option value="active" <?php selected( $member_default, 'active' ); ?>><?php esc_html_e( 'Active', 'bp-classic' ); ?></option>
+				<option value="popular" <?php selected( $member_default, 'popular' ); ?>><?php esc_html_e( 'Popular', 'bp-classic' ); ?></option>
 			</select>
 		</p>
-
-	<?php
+		<?php
 	}
 
 	/**
 	 * Merge the widget settings into defaults array.
 	 *
-	 * @since 2.3.0
+	 * @since 1.0.0
 	 *
 	 * @param array $instance Widget instance settings.
-	 * @return array
+	 * @return array The widget settings into defaults array.
 	 */
 	public function parse_settings( $instance = array() ) {
 		return bp_parse_args(
 			$instance,
 			array(
-				'title' 	     => __( 'Members', 'buddypress' ),
-				'max_members' 	 => 5,
+				'title'          => __( 'Members', 'bp-classic' ),
+				'max_members'    => 5,
 				'member_default' => 'active',
-				'link_title' 	 => false,
+				'link_title'     => false,
 			),
 			'members_widget_settings'
 		);
