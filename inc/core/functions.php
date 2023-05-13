@@ -501,3 +501,79 @@ function bp_core_set_uri_globals() {
 	$bp->action_variables = array_merge( array(), $bp->action_variables );
 }
 add_action( 'bp_init', 'bp_core_set_uri_globals', 2 );
+
+/**
+ * Return the username for a user based on their user id.
+ *
+ * This function is sensitive to the BP_ENABLE_USERNAME_COMPATIBILITY_MODE,
+ * so it will return the user_login or user_nicename as appropriate.
+ *
+ * @since 1.0.0
+ *
+ * @param int         $user_id       User ID to check.
+ * @param string|bool $user_nicename Optional. user_nicename of user being checked.
+ * @param string|bool $user_login    Optional. user_login of user being checked.
+ * @return string The username of the matched user or an empty string if no user is found.
+ */
+function bp_core_get_username( $user_id = 0, $user_nicename = false, $user_login = false ) {
+	if ( ! $user_id ) {
+		$value = $user_nicename;
+		$field = 'slug';
+
+		if ( ! $user_nicename ) {
+			$value = $user_login;
+			$field = 'login';
+		}
+
+		$user = get_user_by( $field, $value );
+
+		if ( $user instanceof WP_User ) {
+			$user_id = (int) $user->ID;
+		}
+	}
+
+	$username = bp_members_get_user_slug( $user_id );
+
+	/**
+	 * Filters the username based on originally provided user ID.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $username Username determined by user ID.
+	 */
+	return apply_filters( 'bp_core_get_username', $username );
+}
+
+/**
+ * Return the domain for the passed user: e.g. http://example.com/members/andy/.
+ *
+ * @since 1.0.0
+ *
+ * @param int         $user_id       The ID of the user.
+ * @param string|bool $user_nicename Optional. user_nicename of the user.
+ * @param string|bool $user_login    Optional. user_login of the user.
+ * @return string
+ */
+function bp_core_get_user_domain( $user_id = 0, $user_nicename = false, $user_login = false ) {
+	if ( empty( $user_id ) ) {
+		return;
+	}
+
+	$domain = bp_members_get_user_url( $user_id );
+
+	// Don't use this filter.  Subject to removal in a future release.
+	// Use the 'bp_core_get_user_domain' filter instead.
+	$domain = apply_filters( 'bp_core_get_user_domain_pre_cache', $domain, $user_id, $user_nicename, $user_login );
+
+	/**
+	 * Filters the domain for the passed user.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $domain        Domain for the passed user.
+	 * @param int    $user_id       ID of the passed user.
+	 * @param string $user_nicename User nicename of the passed user.
+	 * @param string $user_login    User login of the passed user.
+	 */
+	return apply_filters( 'bp_core_get_user_domain', $domain, $user_id, $user_nicename, $user_login );
+}
