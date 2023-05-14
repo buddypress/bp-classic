@@ -35,7 +35,7 @@ function bp_classic_setup_nouveau() {
 		}
 
 		if ( bp_is_active( 'messages' ) ) {
-			// Notices
+			// Notices.
 			add_action( 'widgets_init', 'bp_classic_nouveau_unregister_notices_widget' );
 		}
 	}

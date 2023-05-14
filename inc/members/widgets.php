@@ -58,23 +58,29 @@ add_action( 'bp_register_widgets', 'bp_classic_members_register_widgets' );
  * @see BP_Core_Members_Widget
  */
 function bp_classic_members_ajax_widget() {
-
 	check_ajax_referer( 'bp_core_widget_members' );
 
 	// Setup some variables to check.
-	$filter      = ! empty( $_POST['filter']      ) ? $_POST['filter']                : 'recently-active-members';
-	$max_members = ! empty( $_POST['max-members'] ) ? absint( $_POST['max-members'] ) : 5;
+	$filter = 'recently-active-members';
+	if ( ! empty( $_POST['filter'] ) ) {
+		$filter = sanitize_text_field( wp_unslash( $_POST['filter'] ) );
+	}
+
+	$max_members = 5;
+	if ( ! empty( $_POST['max-members'] ) ) {
+		$filter = absint( wp_unslash( $_POST['max-members'] ) );
+	}
 
 	// Determine the type of members query to perform.
 	switch ( $filter ) {
 
 		// Newest activated.
-		case 'newest-members' :
+		case 'newest-members':
 			$type = 'newest';
 			break;
 
 		// Popular by friends.
-		case 'popular-members' :
+		case 'popular-members':
 			if ( bp_is_active( 'friends' ) ) {
 				$type = 'popular';
 			} else {
@@ -83,8 +89,8 @@ function bp_classic_members_ajax_widget() {
 			break;
 
 		// Default.
-		case 'recently-active-members' :
-		default :
+		case 'recently-active-members':
+		default:
 			$type = 'active';
 			break;
 	}
@@ -102,7 +108,10 @@ function bp_classic_members_ajax_widget() {
 	// Query for members.
 	if ( bp_has_members( $members_args ) ) : ?>
 		<?php echo '0[[SPLIT]]'; // Return valid result. TODO: remove this. ?>
-		<?php while ( bp_members() ) : bp_the_member(); ?>
+		<?php
+		while ( bp_members() ) :
+			bp_the_member();
+			?>
 			<li class="vcard">
 				<div class="item-avatar">
 					<a href="<?php bp_member_permalink(); ?>"><?php bp_member_avatar(); ?></a>
@@ -119,14 +128,15 @@ function bp_classic_members_ajax_widget() {
 					<?php endif; ?>
 				</div>
 			</li>
-
 		<?php endwhile; ?>
 
-	<?php else: ?>
-		<?php echo "-1[[SPLIT]]<li>"; ?>
-		<?php esc_html_e( 'There were no members found, please try another filter.', 'buddypress' ) ?>
-		<?php echo "</li>"; ?>
-	<?php endif;
+		<?php
+		else :
+			printf(
+				'-1[[SPLIT]]<li>%s</li>',
+				esc_html__( 'There were no members found, please try another filter.', 'bp-classic' )
+			);
+		endif;
 }
 add_action( 'wp_ajax_widget_members', 'bp_classic_members_ajax_widget' );
 add_action( 'wp_ajax_nopriv_widget_members', 'bp_classic_members_ajax_widget' );
