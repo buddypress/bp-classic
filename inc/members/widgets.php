@@ -26,7 +26,7 @@ function bp_classic_members_register_members_widget() {
  * @since 1.0.0
  */
 function bp_classic_members_register_whos_online_widget() {
-	register_widget( 'BP_Classic_Whos_Online_Widget' );
+	register_widget( 'BP_Classic_Members_Whos_Online_Widget' );
 }
 
 /**
@@ -35,7 +35,7 @@ function bp_classic_members_register_whos_online_widget() {
  * @since 1.0.0
  */
 function bp_classic_members_register_recently_active_widget() {
-	register_widget( 'BP_Classic_Recently_Active_Widget' );
+	register_widget( 'BP_Classic_Members_Recently_Active_Widget' );
 }
 
 /**
@@ -68,7 +68,7 @@ function bp_classic_members_ajax_widget() {
 
 	$max_members = 5;
 	if ( ! empty( $_POST['max-members'] ) ) {
-		$filter = absint( wp_unslash( $_POST['max-members'] ) );
+		$max_members = absint( wp_unslash( $_POST['max-members'] ) );
 	}
 
 	// Determine the type of members query to perform.
@@ -137,6 +137,8 @@ function bp_classic_members_ajax_widget() {
 				esc_html__( 'There were no members found, please try another filter.', 'bp-classic' )
 			);
 		endif;
+
+		exit();
 }
 add_action( 'wp_ajax_widget_members', 'bp_classic_members_ajax_widget' );
 add_action( 'wp_ajax_nopriv_widget_members', 'bp_classic_members_ajax_widget' );

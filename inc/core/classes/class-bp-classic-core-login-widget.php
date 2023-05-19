@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class BP_Classic_Login_Widget extends WP_Widget {
+class BP_Classic_Core_Login_Widget extends WP_Widget {
 
 	/**
 	 * Constructor method.

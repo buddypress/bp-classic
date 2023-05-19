@@ -28,10 +28,10 @@ function bp_classic_nouveau_unregister_notices_widget() {
 function bp_classic_setup_nouveau() {
 	// Register the Template pack widgets if needed.
 	if ( bp_classic_retain_legacy_widgets() ) {
-		add_action( 'bp_widgets_init', array( 'BP_Classic_Nouveau_Object_Nav_Widget', 'register_widget' ) );
+		add_action( 'bp_widgets_init', array( 'BP_Classic_Templates_Nouveau_Object_Nav_Widget', 'register_widget' ) );
 
 		if ( bp_is_active( 'activity' ) ) {
-			add_action( 'bp_widgets_init', array( 'BP_Classic_Nouveau_Latest_Activities', 'register_widget' ) );
+			add_action( 'bp_widgets_init', array( 'BP_Classic_Templates_Nouveau_Latest_Activities', 'register_widget' ) );
 		}
 
 		if ( bp_is_active( 'messages' ) ) {

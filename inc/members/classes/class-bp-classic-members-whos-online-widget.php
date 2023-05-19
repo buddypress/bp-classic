@@ -1,6 +1,6 @@
 <?php
 /**
- * BP Classic Recently Active members Widget class.
+ * BP Classic Online members Widget class.
  *
  * @package bp-classic\inc\members\classes
  * @since 1.0.0
@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Recently Active Members Widget.
+ * Who's Online Widget.
  *
  * @since 1.0.0
  */
-class BP_Classic_Recently_Active_Widget extends WP_Widget {
+class BP_Classic_Members_Whos_Online_Widget extends WP_Widget {
 
 	/**
 	 * Constructor method.
@@ -24,15 +24,14 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$name        = _x( '(BuddyPress) Recently Active Members', 'widget name', 'bp-classic' );
-		$description = __( 'Profile photos of recently active members', 'bp-classic' );
-
+		$name        = _x( "(BuddyPress) Who's Online", 'widget name', 'bp-classic' );
+		$description = __( 'Profile photos of online users', 'bp-classic' );
 		parent::__construct(
 			false,
 			$name,
 			array(
 				'description'                 => $description,
-				'classname'                   => 'widget_bp_core_recently_active_widget buddypress widget',
+				'classname'                   => 'widget_bp_core_whos_online_widget buddypress widget',
 				'customize_selective_refresh' => true,
 				'show_instance_in_rest'       => true,
 			)
@@ -40,7 +39,7 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Display the Recently Active widget.
+	 * Display the Who's Online widget.
 	 *
 	 * @since 1.0.0
 	 *
@@ -56,7 +55,7 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 		$settings = $this->parse_settings( $instance );
 
 		/**
-		 * Filters the title of the Recently Active widget.
+		 * Filters the title of the Who's Online widget.
 		 *
 		 * @since 1.0.0
 		 *
@@ -74,7 +73,7 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 		// Setup args for querying members.
 		$members_args = array(
 			'user_id'         => 0,
-			'type'            => 'active',
+			'type'            => 'online',
 			'per_page'        => $max_members,
 			'max'             => $max_members,
 			'populate_extras' => true,
@@ -86,6 +85,7 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 		?>
 
 		<?php if ( bp_has_members( $members_args ) ) : ?>
+
 			<div class="avatar-block">
 
 				<?php
@@ -100,10 +100,13 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 				<?php endwhile; ?>
 
 			</div>
+
 		<?php else : ?>
+
 			<div class="widget-error">
-				<?php esc_html_e( 'There are no recently active members', 'bp-classic' ); ?>
+				<?php esc_html_e( 'There are no users currently online', 'bp-classic' ); ?>
 			</div>
+
 			<?php
 		endif;
 
@@ -114,9 +117,9 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Update the Recently Active widget options.
+	 * Update the Who's Online widget options.
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.3
 	 *
 	 * @param array $new_instance The new instance options.
 	 * @param array $old_instance The old instance options.
@@ -134,11 +137,12 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Output the Recently Active widget options form.
+	 * Output the Who's Online widget options form.
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.3
 	 *
 	 * @param array $instance Widget instance settings.
+	 * @return void
 	 */
 	public function form( $instance ) {
 		$max_limit = bp_get_widget_max_count_limit( __CLASS__ );
@@ -148,25 +152,28 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 		$title       = wp_strip_all_tags( $settings['title'] );
 		$max_members = $settings['max_members'] > $max_limit ? $max_limit : intval( $settings['max_members'] );
 		?>
+
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
 				<?php esc_html_e( 'Title:', 'bp-classic' ); ?>
 				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
 			</label>
 		</p>
+
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'max_members' ) ); ?>">
 				<?php esc_html_e( 'Max members to show:', 'bp-classic' ); ?>
 				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max_members' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max_members' ) ); ?>" type="number" min="1" max="<?php echo esc_attr( $max_limit ); ?>" value="<?php echo esc_attr( $max_members ); ?>" style="width: 30%" />
 			</label>
 		</p>
+
 		<?php
 	}
 
 	/**
 	 * Merge the widget settings into defaults array.
 	 *
-	 * @since 1.0.0
+	 * @since 2.3.0
 	 *
 	 * @param array $instance Widget instance settings.
 	 * @return array
@@ -175,10 +182,10 @@ class BP_Classic_Recently_Active_Widget extends WP_Widget {
 		return bp_parse_args(
 			$instance,
 			array(
-				'title'       => __( 'Recently Active Members', 'bp-classic' ),
+				'title'       => __( "Who's Online", 'bp-classic' ),
 				'max_members' => 15,
 			),
-			'recently_active_members_widget_settings'
+			'members_widget_settings'
 		);
 	}
 }

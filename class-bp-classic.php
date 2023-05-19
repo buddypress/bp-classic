@@ -55,12 +55,42 @@ final class BP_Classic {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
+		// Autoload Classes.
+		spl_autoload_register( array( $this, 'autoload' ) );
+
 		// Load Globals & Functions.
 		$inc_path = plugin_dir_path( __FILE__ ) . 'inc/';
 
 		require $inc_path . 'globals.php';
 		require $inc_path . 'functions.php';
 		require $inc_path . 'loader.php';
+	}
+
+	/**
+	 * Class Autoload function
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  string $class The class name.
+	 */
+	public function autoload( $class ) {
+		$name = str_replace( '_', '-', strtolower( $class ) );
+
+		if ( 0 !== strpos( $name, 'bp-classic' ) ) {
+			return;
+		}
+
+		$name_parts = explode( '-', $name );
+		$component  = $name_parts[2];
+
+		$path = plugin_dir_path( __FILE__ ) . "inc/{$component}/classes/class-{$name}.php";
+
+		// Sanity check.
+		if ( ! file_exists( $path ) ) {
+			return;
+		}
+
+		require $path;
 	}
 
 	/**

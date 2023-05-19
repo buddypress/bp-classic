@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class BP_Classic_Nouveau_Latest_Activities extends WP_Widget {
+class BP_Classic_Templates_Nouveau_Latest_Activities extends WP_Widget {
 	/**
 	 * Construct the widget.
 	 *
@@ -49,7 +49,7 @@ class BP_Classic_Nouveau_Latest_Activities extends WP_Widget {
 	 * @since 1.0.0
 	 */
 	public static function register_widget() {
-		register_widget( 'BP_Classic_Nouveau_Latest_Activities' );
+		register_widget( 'BP_Classic_Templates_Nouveau_Latest_Activities' );
 	}
 
 	/**

@@ -21,13 +21,15 @@ function bp_classic_globals() {
 
 	$bpc->version = '1.0.0-alpha';
 
-	// Path.
-	$inc_dir  = plugin_dir_path( __FILE__ );
-	$bpc->dir = $inc_dir;
+	// Paths.
+	$inc_dir      = plugin_dir_path( __FILE__ );
+	$bpc->inc_dir = $inc_dir;
+	$bpc->dir     = dirname( $inc_dir );
 
-	// URL.
-	$plugin_url = plugins_url( '', dirname( __FILE__ ) );
-	$bpc->url   = $plugin_url;
+	// URLs.
+	$plugin_url   = plugins_url( '', dirname( __FILE__ ) );
+	$bpc->url     = $plugin_url;
+	$bpc->inc_url = trailingslashit( $plugin_url ) . 'inc';
 
 	/**
 	 * Private (do not use) hook used to include files early.

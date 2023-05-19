@@ -43,12 +43,11 @@ class BP_Classic_Friends_Widget extends WP_Widget {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
-		$min = bp_core_get_minified_asset_suffix();
 		wp_enqueue_script(
 			'bp_core_widget_friends-js',
-			buddypress()->plugin_url . "bp-friends/js/widget-friends{$min}.js",
+			trailingslashit( bp_classic()->inc_url ) . 'friends/js/widget-friends.js',
 			array( 'jquery' ),
-			bp_get_version(),
+			bp_classic_version(),
 			true
 		);
 	}

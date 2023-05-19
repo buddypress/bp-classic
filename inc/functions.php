@@ -12,6 +12,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Returns the plugin version.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_version() {
+	return bp_classic()->version;
+}
+
+/**
  * Load translation.
  *
  * @since 1.0.0

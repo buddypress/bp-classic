@@ -113,6 +113,8 @@ function bp_classic_friends_ajax_widget() {
 		<?php echo '</li>'; ?>
 		<?php
 	endif;
+
+	exit();
 }
 add_action( 'wp_ajax_widget_friends', 'bp_classic_friends_ajax_widget' );
 add_action( 'wp_ajax_nopriv_widget_friends', 'bp_classic_friends_ajax_widget' );
