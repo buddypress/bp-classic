@@ -105,3 +105,28 @@ function bp_get_widget_max_count_limit( $widget_class = '' ) {
 	 */
 	return apply_filters( 'bp_get_widget_max_count_limit', 50, $widget_class );
 }
+
+/**
+ * Registers Classic widgets styles.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_register_template_pack_widget_styles() {
+	if ( current_theme_supports( 'buddypress' ) ) {
+		return;
+	}
+
+	$bpc = bp_classic();
+	$tp  = bp_get_theme_package_id();
+
+	$template_pack_file = sprintf( trailingslashit( $bpc->inc_dir ) . 'templates/css/widgets-%s.css', $tp );
+	if ( file_exists( $template_pack_file ) ) {
+		wp_register_style(
+			'bp-classic-widget-styles',
+			sprintf( trailingslashit( $bpc->inc_url ) . 'templates/css/widgets-%s.css', $tp ),
+			array(),
+			$bpc->version
+		);
+	}
+}
+add_action( 'bp_enqueue_scripts', 'bp_classic_register_template_pack_widget_styles', 1 );

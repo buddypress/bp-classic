@@ -30,11 +30,25 @@ class BP_Classic_Blogs_Recent_Posts_Widget extends WP_Widget {
 			'customize_selective_refresh' => true,
 			'show_instance_in_rest'       => true,
 		);
+
 		parent::__construct(
 			false,
 			_x( '(BuddyPress) Recent Networkwide Posts', 'widget name', 'bp-classic' ),
 			$widget_ops
 		);
+
+		if ( is_customize_preview() || bp_is_widget_block_active( '', $this->id_base ) ) {
+			add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		}
+	}
+
+	/**
+	 * Enqueue assets.
+	 *
+	 * @since 1.0.0
+	 */
+	public function enqueue_assets() {
+		wp_enqueue_style( 'bp-classic-widget-styles' );
 	}
 
 	/**

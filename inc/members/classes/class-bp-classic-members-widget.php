@@ -52,6 +52,8 @@ class BP_Classic_Members_Widget extends WP_Widget {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
+		wp_enqueue_style( 'bp-classic-widget-styles' );
+
 		wp_enqueue_script(
 			'bp-widget-members',
 			trailingslashit( bp_classic()->inc_url ) . 'members/js/widget-members.js',

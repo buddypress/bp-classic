@@ -33,16 +33,18 @@ class BP_Classic_Groups_Widget extends WP_Widget {
 		parent::__construct( false, _x( '(BuddyPress) Groups', 'widget name', 'bp-classic' ), $widget_ops );
 
 		if ( is_customize_preview() || bp_is_widget_block_active( '', $this->id_base ) ) {
-			add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		}
 	}
 
 	/**
-	 * Enqueue scripts.
+	 * Enqueue assets.
 	 *
 	 * @since 1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_assets() {
+		wp_enqueue_style( 'bp-classic-widget-styles' );
+
 		wp_enqueue_script(
 			'groups_widget_groups_list-js',
 			trailingslashit( bp_classic()->inc_url ) . 'groups/js/widget-groups.js',
