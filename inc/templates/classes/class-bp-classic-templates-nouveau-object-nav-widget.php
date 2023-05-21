@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class BP_Classic_Nouveau_Object_Nav_Widget extends WP_Widget {
+class BP_Classic_Templates_Nouveau_Object_Nav_Widget extends WP_Widget {
 	/**
 	 * Constructor
 	 *
@@ -44,7 +44,7 @@ class BP_Classic_Nouveau_Object_Nav_Widget extends WP_Widget {
 	 * @since 1.0.0
 	 */
 	public static function register_widget() {
-		register_widget( 'BP_Classic_Nouveau_Object_Nav_Widget' );
+		register_widget( 'BP_Classic_Templates_Nouveau_Object_Nav_Widget' );
 	}
 
 	/**

@@ -33,22 +33,23 @@ class BP_Classic_Groups_Widget extends WP_Widget {
 		parent::__construct( false, _x( '(BuddyPress) Groups', 'widget name', 'bp-classic' ), $widget_ops );
 
 		if ( is_customize_preview() || bp_is_widget_block_active( '', $this->id_base ) ) {
-			add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		}
 	}
 
 	/**
-	 * Enqueue scripts.
+	 * Enqueue assets.
 	 *
 	 * @since 1.0.0
 	 */
-	public function enqueue_scripts() {
-		$min = bp_core_get_minified_asset_suffix();
+	public function enqueue_assets() {
+		wp_enqueue_style( 'bp-classic-widget-styles' );
+
 		wp_enqueue_script(
 			'groups_widget_groups_list-js',
-			buddypress()->plugin_url . "bp-groups/js/widget-groups{$min}.js",
+			trailingslashit( bp_classic()->inc_url ) . 'groups/js/widget-groups.js',
 			array( 'jquery' ),
-			bp_get_version(),
+			bp_classic_version(),
 			true
 		);
 	}
@@ -128,7 +129,7 @@ class BP_Classic_Groups_Widget extends WP_Widget {
 				<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
 				<a href="<?php bp_groups_directory_url(); ?>" id="recently-active-groups" class="<?php ( 'active' === $instance['group_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Active', 'bp-classic' ); ?></a>
 				<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
-				<a href="<?php bp_groups_directory_url(); ?>" id="popular-groups" class="<?php ( 'popular' === $instance['group_default'] ) ? 'selected' : ''; ?>">><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
+				<a href="<?php bp_groups_directory_url(); ?>" id="popular-groups" class="<?php ( 'popular' === $instance['group_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
 				<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
 				<a href="<?php bp_groups_directory_url(); ?>" id="alphabetical-groups" class="<?php ( 'alphabetical' === $instance['group_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Alphabetical', 'bp-classic' ); ?></a>
 			</div>

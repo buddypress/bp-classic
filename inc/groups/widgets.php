@@ -114,6 +114,8 @@ function bp_classic_groups_ajax_widget() {
 				esc_html__( 'No groups matched the current filter.', 'bp-classic' )
 			);
 		endif;
+
+		exit();
 }
 add_action( 'wp_ajax_widget_groups_list', 'bp_classic_groups_ajax_widget' );
 add_action( 'wp_ajax_nopriv_widget_groups_list', 'bp_classic_groups_ajax_widget' );

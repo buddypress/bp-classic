@@ -28,7 +28,7 @@ function bp_classic_blogs_register_recent_posts_widget() {
 function bp_classic_blogs_register_widgets() {
 	global $wpdb;
 
-	if ( bp_is_active( 'activity' ) && bp_is_root_blog( $wpdb->blogid ) ) {
+	if ( is_multisite() && bp_is_active( 'activity' ) && bp_is_root_blog( $wpdb->blogid ) ) {
 		add_action( 'widgets_init', 'bp_classic_blogs_register_recent_posts_widget' );
 	}
 }

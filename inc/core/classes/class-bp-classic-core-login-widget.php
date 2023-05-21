@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class BP_Classic_Login_Widget extends WP_Widget {
+class BP_Classic_Core_Login_Widget extends WP_Widget {
 
 	/**
 	 * Constructor method.
@@ -34,6 +34,19 @@ class BP_Classic_Login_Widget extends WP_Widget {
 				'show_instance_in_rest'       => true,
 			)
 		);
+
+		if ( is_customize_preview() || bp_is_widget_block_active( '', $this->id_base ) ) {
+			add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		}
+	}
+
+	/**
+	 * Enqueue assets.
+	 *
+	 * @since 1.0.0
+	 */
+	public function enqueue_assets() {
+		wp_enqueue_style( 'bp-classic-widget-styles' );
 	}
 
 	/**
