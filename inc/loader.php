@@ -43,6 +43,8 @@ function bp_classic_includes( $plugin_dir = '' ) {
 		if ( is_admin() ) {
 			require $path . '/activity/admin/functions.php';
 		}
+
+		require $path . '/activity/filters.php';
 	}
 
 	if ( bp_is_active( 'blogs' ) ) {

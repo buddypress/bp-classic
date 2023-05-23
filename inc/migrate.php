@@ -95,3 +95,21 @@ function bp_classic_switch_directory_post_type( $post_type = '' ) {
 		}
 	}
 }
+
+/**
+ * Make sure to activate a default WordPress theme if BP Default is active.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_restore_default_theme() {
+	// Force refresh theme roots.
+	delete_site_transient( 'theme_roots' );
+
+	// Switch to WordPress's default theme if current parent or child theme
+	// depend on bp-default. This is to prevent white screens of doom.
+	if ( in_array( 'bp-default', array( get_template(), get_stylesheet() ), true ) ) {
+		switch_theme( WP_DEFAULT_THEME, WP_DEFAULT_THEME );
+		update_option( 'template_root', get_raw_theme_root( WP_DEFAULT_THEME, true ) );
+		update_option( 'stylesheet_root', get_raw_theme_root( WP_DEFAULT_THEME, true ) );
+	}
+}

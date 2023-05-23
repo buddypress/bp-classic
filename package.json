@@ -1,0 +1,22 @@
+{
+  "name": "bp-classic",
+  "version": "1.0.0-alpha",
+  "description": "BuddyPress Classic backward compatibility plugin.",
+  "scripts": {
+    "bpdefault": "svn export --force https://github.com/buddypress/BP-Default.git/trunk themes/bp-default"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buddypress/bp-classic.git"
+  },
+  "keywords": [
+    "buddypress",
+    "compatibility"
+  ],
+  "author": "The BuddyPress Community",
+  "license": "GPL-2.0-or-later",
+  "bugs": {
+    "url": "https://github.com/buddypress/bp-classic/issues"
+  },
+  "homepage": "https://github.com/buddypress/bp-classic#readme"
+}
