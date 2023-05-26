@@ -577,3 +577,15 @@ function bp_core_get_user_domain( $user_id = 0, $user_nicename = false, $user_lo
 	 */
 	return apply_filters( 'bp_core_get_user_domain', $domain, $user_id, $user_nicename, $user_login );
 }
+
+/**
+ * Determine whether BuddyPress should register the `themes` directory.
+ *
+ * @since 1.0.0
+ *
+ * @return boolean True if the `themes` directory should be registered.
+ *                 False otherwise.
+ */
+function bp_do_register_theme_directory() {
+	return BP_Classic::do_register_theme_directory();
+}
