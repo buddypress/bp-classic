@@ -153,6 +153,11 @@ final class BP_Classic {
 	 * @since 1.0.0
 	 */
 	public static function is_buddypress_supported() {
+		// Skip the check when running PHP Unit Tests.
+		if ( function_exists( 'tests_add_filter' ) ) {
+			return true;
+		}
+
 		$bp_plugin_basename      = 'buddypress/bp-loader.php';
 		$is_buddypress_supported = false;
 		$sitewide_plugins        = (array) get_site_option( 'active_sitewide_plugins', array() );

@@ -31,9 +31,12 @@
 		"php": ">=5.6.0"
 	},
 	"require-dev": {
-		"buddypress/bp-coding-standards": "dev-trunk"
+		"buddypress/bp-coding-standards": "dev-trunk",
+		"wp-phpunit/wp-phpunit": "^6.2",
+		"yoast/phpunit-polyfills": "^1.0.1"
 	},
 	"scripts": {
+		"test": "@php ./vendor/phpunit/phpunit/phpunit",
 		"phpcs" : "@php ./vendor/bin/phpcs --extensions=php inc class-bp-classic.php",
 		"phpcompat": "@php ./vendor/bin/phpcs -p --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 5.6- inc class-bp-classic.php"
 	}
