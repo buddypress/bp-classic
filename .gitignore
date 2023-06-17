@@ -13,3 +13,4 @@ npm-debug.log
 vendor
 .cache
 .phpcs/*.json
+.phpunit.result.cache
