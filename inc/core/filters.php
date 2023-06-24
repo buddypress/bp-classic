@@ -71,3 +71,32 @@ function bp_classic_default_theme_root_uri( $theme_root_uri, $siteurl, $styleshe
 	return $theme_root_uri;
 }
 add_filter( 'theme_root_uri', 'bp_classic_default_theme_root_uri', 10, 3 );
+
+/**
+ * Inits Legacy navigation to preserve backward compatibility with BP < 2.6 code.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_init_legacy_backcompat_nav() {
+	$bp = buddypress();
+
+	// Backward compatibility for plugins modifying the legacy bp_nav and bp_options_nav global properties.
+	$bp->bp_nav         = new BP_Classic_Core_Legacy_Nav_BackCompat();
+	$bp->bp_options_nav = new BP_Classic_Core_Legacy_Options_Nav_BackCompat();
+}
+add_action( 'bp_core_setup_globals', 'bp_classic_init_legacy_backcompat_nav', 1 );
+
+/**
+ * Resets the Legacy navigation when a nav or subnav item was removed.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_reset_legacy_backcompat_nav() {
+	$bp = buddypress();
+
+	// Reset backcompat nav items so that subsequent references will be correct.
+	$bp->bp_nav->reset();
+	$bp->bp_options_nav->reset();
+}
+add_action( 'bp_core_removed_nav_item', 'bp_classic_reset_legacy_backcompat_nav', 1, 0 );
+add_action( 'bp_core_removed_subnav_item', 'bp_classic_reset_legacy_backcompat_nav', 1, 0 );
