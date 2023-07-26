@@ -11,7 +11,7 @@
  * Plugin Name:       BP Classic
  * Plugin URI:        https://github.com/buddypress/bp-classic
  * Description:       BuddyPress Classic backward compatibility plugin.
- * Version:           1.0.0-alpha
+ * Version:           1.0.0-beta1
  * Author:            The BuddyPress Community
  * Author URI:        https://buddypress.org
  * License:           GPL-2.0+

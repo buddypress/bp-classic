@@ -34,7 +34,7 @@ Growing the BuddyPress community means better software for everyone!
 = Requirements =
 
 * WordPress 5.8.
-* BuddyPress 12.0.0.
+* BuddyPress **12.0.0**.
 
 = Automatic installation =
 
@@ -53,7 +53,7 @@ Report bugs or suggest ideas at [https://github.com/buddypress/bp-classic/issues
 
 = Who builds the BP Classic backcompat plugin? =
 
-The BP Classic plugin is a BuddyPress backward compatibility plugin and is free software, built by an international community of volunteers. Some contributors to BuddyPress are employed by companies that use BuddyPress, while others are consultants who offer BuddyPress-related services for hire. No one is paid by the BuddyPress project for his or her contributions.
+The BP Classic plugin is a BuddyPress backward compatibility plugin and is free software, built by an international community of volunteers. Some contributors to BuddyPress are employed by companies that use BuddyPress, while others are consultants who offer BuddyPress-related services for hire. No one is paid by the BuddyPress project for their contributions.
 
 If you would like to provide monetary support to the BP Classic or BuddyPress plugins, please consider a donation to the [WordPress Foundation](https://wordpressfoundation.org), or ask your favorite contributor how they prefer to have their efforts rewarded.
 
