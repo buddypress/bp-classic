@@ -9,7 +9,7 @@ Requires PHP: 5.6
 Tested up to: 6.2
 Stable tag: 1.0.0
 
-BP Classic, a BuddyPress backward compatibility plugin
+BP Classic, a BuddyPress (12.0.0 & up) backward compatibility plugin
 
 == Description ==
 
