@@ -14,3 +14,4 @@ vendor
 .cache
 .phpcs/*.json
 .phpunit.result.cache
+themes
