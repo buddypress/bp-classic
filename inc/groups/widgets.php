@@ -85,7 +85,7 @@ function bp_classic_groups_ajax_widget() {
 						<?php if ( 'newest-groups' === $filter ) : ?>
 							<span class="activity" data-livestamp="<?php bp_core_iso8601_date( bp_get_group_date_created( 0, array( 'relative' => false ) ) ); ?>">
 								<?php
-								/* translators: %s: date */
+								/* Translators: %s is the date the group was created on. */
 								printf( esc_html__( 'created %s', 'bp-classic' ), esc_html( bp_get_group_date_created() ) );
 								?>
 							</span>
