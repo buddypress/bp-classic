@@ -179,7 +179,7 @@ final class BP_Classic {
 	}
 
 	/**
-	 * Displays an admin notice to explain how to install BP Classic.
+	 * Displays an admin notice to explain BP Classic requires BuddyPress 12.0.0.
 	 *
 	 * @since 1.0.0
 	 */
@@ -188,17 +188,20 @@ final class BP_Classic {
 			return false;
 		}
 
-		$bp_plugin_link = sprintf( '<a href="%s">BuddyPress</a>', esc_url( _x( 'https://wordpress.org/plugins/buddypress', 'BuddyPress WP plugin directory URL', 'bp-classic' ) ) );
+		$show_notice = get_site_transient( 'bp_classic_show_notice' );
 
-		printf(
-			'<div class="notice notice-error is-dismissible"><p>%s</p></div>',
-			sprintf(
-				/* translators: 1. is the link to the BuddyPress plugin on the WordPress.org plugin directory. */
-				esc_html__( 'BP Classic requires the %1$s plugin to be active and its version must be %2$s. Please deactivate BP Classic, activate a version of %1$s %2$s and only then, reactivate BP Classic.', 'bp-classic' ),
-				$bp_plugin_link, // phpcs:ignore
-				'<b>>= 12.0.0</b>' // phpcs:ignore
-			)
-		);
+		if ( ! $show_notice ) {
+			printf(
+				'<div class="notice notice-warning is-dismissible"><p>%s</p></div>',
+				sprintf(
+					/* translators: %s. is current version of BuddyPress. */
+					esc_html__( 'Friendly reminder: BP Classic only runs when BuddyPress version is 12.0.0 (or up). Your current version of BuddyPress is: %s. Unless you activated BP Classic in anticipation of the 12.0.0 upgrade, you can deactivate it. This information will be shown regularly (every week) and as long as your BuddyPress version is lower than 12.0.0.', 'bp-classic' ),
+					bp_get_version() // phpcs:ignore
+				)
+			);
+
+			set_site_transient( 'bp_classic_show_notice', true, WEEK_IN_SECONDS );
+		}
 	}
 
 	/**
