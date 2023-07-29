@@ -73,6 +73,28 @@ function bp_classic_default_theme_root_uri( $theme_root_uri, $siteurl, $styleshe
 add_filter( 'theme_root_uri', 'bp_classic_default_theme_root_uri', 10, 3 );
 
 /**
+ * Once BuddyPress 12.0.0 is updated, eventually updateds active theme options.
+ *
+ * In case the BP Default theme was active in BuddyPress < 12.0.0, it's required
+ * to update template and eventually stylesheet root options to keep BP Default
+ * as the active theme safely.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_update_bp_default_theme_options() {
+	$theme_root = str_replace( content_url(), '', bp_classic_get_themes_url() );
+
+	if ( 'bp-default' === get_template() ) {
+		update_option( 'template_root', $theme_root );
+	}
+
+	if ( 'bp-default' === get_stylesheet() ) {
+		update_option( 'stylesheet_root', $theme_root );
+	}
+}
+add_action( 'bp_updated_to_12_0', 'bp_classic_update_bp_default_theme_options' );
+
+/**
  * Inits Legacy navigation to preserve backward compatibility with BP < 2.6 code.
  *
  * @since 1.0.0

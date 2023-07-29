@@ -31,6 +31,9 @@ function bp_classic_globals() {
 	$bpc->url     = $plugin_url;
 	$bpc->inc_url = trailingslashit( $plugin_url ) . 'inc';
 
+	$bpc->themes_dir = plugin_dir_path( dirname( __FILE__ ) ) . 'themes';
+	$bpc->themes_url = plugins_url( 'themes', dirname( __FILE__ ) );
+
 	/**
 	 * Private (do not use) hook used to include files early.
 	 *

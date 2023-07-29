@@ -60,3 +60,21 @@ function bp_classic_retain_legacy_widgets() {
 	 */
 	return apply_filters( 'bp_core_retain_legacy_widgets', $retain_legacy_widgets );
 }
+
+/**
+ * Returns the path to the `themes` directory.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_get_themes_dir() {
+	return bp_classic()->themes_dir;
+}
+
+/**
+ * Returns the url of the `themes` directory.
+ *
+ * @since 1.0.0
+ */
+function bp_classic_get_themes_url() {
+	return bp_classic()->themes_url;
+}
