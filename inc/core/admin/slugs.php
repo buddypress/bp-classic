@@ -391,7 +391,7 @@ function bp_classic_admin_add_contextual_help() {
 		array(
 			'id'      => 'bp-page-overview',
 			'title'   => __( 'Overview', 'bp-classic' ),
-			'content' => '<p>' . __( 'BuddyPress Components use WordPress Pages for their root directory/archive pages. You can change the page associations for each active component by using the form below.', 'bp-classic' ) . '</p>',
+			'content' => '<p>' . __( 'Using BP Classic, BuddyPress Components root directory/archive pages are saved as regular WordPress pages. You can change the page associations for each active component by using the form below.', 'bp-classic' ) . '</p>',
 		)
 	);
 

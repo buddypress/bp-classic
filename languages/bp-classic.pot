@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-29T08:42:31+00:00\n"
+"POT-Creation-Date: 2023-07-29T08:54:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: bp-classic\n"
@@ -177,7 +177,7 @@ msgid "Overview"
 msgstr ""
 
 #: inc/core/admin/slugs.php:394
-msgid "BuddyPress Components use WordPress Pages for their root directory/archive pages. You can change the page associations for each active component by using the form below."
+msgid "Using BP Classic, BuddyPress Components root directory/archive pages are saved as regular WordPress pages. You can change the page associations for each active component by using the form below."
 msgstr ""
 
 #: inc/core/admin/slugs.php:400
