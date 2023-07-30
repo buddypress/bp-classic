@@ -102,6 +102,11 @@ function bp_classic_switch_directory_post_type( $post_type = '' ) {
  * @since 1.0.0
  */
 function bp_classic_restore_default_theme() {
+	// If the current active template theme is not BP Default from the this plugin, stop.
+	if ( false === strpos( get_template_directory(), 'bp-classic/themes/bp-default' ) ) {
+		return;
+	}
+
 	// Force refresh theme roots.
 	delete_site_transient( 'theme_roots' );
 

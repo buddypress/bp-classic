@@ -82,6 +82,11 @@ add_filter( 'theme_root_uri', 'bp_classic_default_theme_root_uri', 10, 3 );
  * @since 1.0.0
  */
 function bp_classic_update_bp_default_theme_options() {
+	// If the current active template theme is not BP Default from the BuddyPress plugin, stop.
+	if ( false === strpos( get_template_directory(), 'plugins/buddypress/bp-themes/bp-default' ) ) {
+		return;
+	}
+
 	$theme_root = str_replace( content_url(), '', bp_classic_get_themes_url() );
 
 	if ( 'bp-default' === get_template() ) {
