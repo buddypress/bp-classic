@@ -6,22 +6,24 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 5.8
 Requires PHP: 5.6
-Tested up to: 6.2
+Tested up to: 6.3
 Stable tag: 1.0.0
 
-BP Classic, a BuddyPress (12.0.0 & up) backward compatibility plugin
+BP Classic, a BuddyPress (12.0.0 & up) backwards compatibility add-on
 
 == Description ==
 
-The BP Classic plugin is being developed and maintained by the official BuddyPress development team.
+The BP Classic add-on is being developed and maintained by the official BuddyPress development team.
 
-It was first built to provide backward compatibility to configs where third party BuddyPress plugin(s) or theme(s) - not ready yet for the BP Rewrites API (introduced in BuddyPress 12.0.0) - are activated.
+It was first built to provide backwards compatibility to configs where third party BuddyPress plugin(s) or theme(s) - not ready yet for the BP Rewrites API (introduced in BuddyPress 12.0.0) - are activated.
 
-BP Classic also includes features and templates that were fully deprecated in BuddyPress 12.0.0. Here are the ones you will now find back only once you activated BP Classic:
+BP Classic also includes features and templates that are fully deprecated in BuddyPress 12.0.0. Here are the ones you will now find back only once you activated the BP Classic add-on:
 
 - The BP Legacy widgets (these were migrated as Blocks in BuddyPress 9.0.0).
 - The BP Default theme.
 - The BP Legacy navigation globals (`buddypress()->bp_nav` & `buddypress()->bp_options_nav`).
+
+**NB**: although the BP Classic add-on only runs when the BuddyPress version is 12.0.0 or up, you can choose to anticipate the BuddyPress 12.0.0 upgrade by activating the add-on. In this case the add-on is in "sleep mode" and will wake up as soon as BuddyPress has been upgraded to 12.0.0.
 
 = Join the BuddyPress community =
 

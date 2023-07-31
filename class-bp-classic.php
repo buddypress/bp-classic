@@ -1,6 +1,6 @@
 <?php
 /**
- * BuddyPress Classic backward compatibility plugin.
+ * BuddyPress Classic backwards compatibility add-on.
  *
  * @package   bp-classic
  * @author    The BuddyPress Community
@@ -10,8 +10,8 @@
  * @buddypress-plugin
  * Plugin Name:       BP Classic
  * Plugin URI:        https://github.com/buddypress/bp-classic
- * Description:       BuddyPress Classic backward compatibility plugin.
- * Version:           1.0.0-beta1
+ * Description:       BuddyPress Classic backwards compatibility add-on.
+ * Version:           1.0.0
  * Author:            The BuddyPress Community
  * Author URI:        https://buddypress.org
  * License:           GPL-2.0+
@@ -318,7 +318,7 @@ final class BP_Classic {
 }
 
 /**
- * Start plugin.
+ * Start Add-on.
  *
  * @since 1.0.0
  *

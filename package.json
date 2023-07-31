@@ -1,10 +1,10 @@
 {
   "name": "bp-classic",
-  "version": "1.0.0-beta1",
+  "version": "1.0.0",
   "description": "BuddyPress Classic backward compatibility plugin.",
   "scripts": {
     "bpdefault": "svn export --force https://github.com/buddypress/BP-Default.git/branches/prepare/bp-classic-moving  themes/bp-default",
-		"pot": "wp i18n make-pot . --exclude=\".phpcs,node_modules,tests,vendor\" languages/bp-classic.pot --headers='{\"Project-Id-Version\": \"BP Classic\", \"Report-Msgid-Bugs-To\": \"https://github.com/buddypress/bp-classic/issues\", \"Last-Translator\": \"JOHN JAMES JACOBY <jjj@buddypress.org>\", \"Language-Team\": \"ENGLISH <jjj@buddypress.org>\"}'"
+    "pot": "wp i18n make-pot . --exclude=\".phpcs,node_modules,tests,vendor\" languages/bp-classic.pot --headers='{\"Project-Id-Version\": \"BP Classic\", \"Report-Msgid-Bugs-To\": \"https://github.com/buddypress/bp-classic/issues\", \"Last-Translator\": \"JOHN JAMES JACOBY <jjj@buddypress.org>\", \"Language-Team\": \"ENGLISH <jjj@buddypress.org>\"}'"
   },
   "repository": {
     "type": "git",

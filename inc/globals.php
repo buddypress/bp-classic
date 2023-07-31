@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function bp_classic_globals() {
 	$bpc = bp_classic();
 
-	$bpc->version = '1.0.0-beta1';
+	$bpc->version = '1.0.0';
 
 	// Paths.
 	$inc_dir      = plugin_dir_path( __FILE__ );
