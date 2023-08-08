@@ -170,8 +170,8 @@ final class BP_Classic {
 		$sitewide_plugins        = (array) get_site_option( 'active_sitewide_plugins', array() );
 
 		if ( $sitewide_plugins ) {
-			self::$network_config       = new stdClass();
-			$is_buddypress_supported    = isset( $sitewide_plugins[ $bp_plugin_basename ] );
+			self::$network_config    = new stdClass();
+			$is_buddypress_supported = isset( $sitewide_plugins[ $bp_plugin_basename ] );
 
 			// Informs about whether BuddyPress is network activated or not.
 			self::$network_config->bp_is_network_active = $is_buddypress_supported;
@@ -229,9 +229,15 @@ final class BP_Classic {
 			);
 
 			if ( isset( self::$network_config->same ) && 'no' === self::$network_config->same ) {
+				$error = __( 'Please, make sure to activate BP Classic at the network level, just like BuddyPress is.', 'bp-classic' );
+
+				if ( false === self::$network_config->bp_is_network_active ) {
+					$error = __( 'Please, make sure to activate BP Classic on the same site of the network BuddyPress is activated on.', 'bp-classic' );
+				}
+
 				printf(
 					'<div class="notice notice-error is-dismissible"><p>%s</p></div>',
-					esc_html__( 'Please, make sure to activate BP Classic at the network level, just like BuddyPress is.', 'bp-classic' )
+					esc_html( $error )
 				);
 			}
 
