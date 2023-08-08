@@ -43,6 +43,13 @@ final class BP_Classic {
 	protected static $instance = null;
 
 	/**
+	 * Used to check if BuddyPress & BP Classic are sharing the same network config.
+	 *
+	 * @var object
+	 */
+	protected static $network_config = null;
+
+	/**
 	 * Used to store dynamic properties.
 	 *
 	 * @var array
@@ -163,7 +170,24 @@ final class BP_Classic {
 		$sitewide_plugins        = (array) get_site_option( 'active_sitewide_plugins', array() );
 
 		if ( $sitewide_plugins ) {
-			$is_buddypress_supported = isset( $sitewide_plugins[ $bp_plugin_basename ] );
+			self::$network_config       = new stdClass();
+			$is_buddypress_supported    = isset( $sitewide_plugins[ $bp_plugin_basename ] );
+
+			// Informs about whether BuddyPress is network activated or not.
+			self::$network_config->bp_is_network_active = $is_buddypress_supported;
+
+			$bp_classic_plugin_basename = plugin_basename( __FILE__ );
+
+			// Informs about whether BuddyPress is network activated or not.
+			self::$network_config->bp_classic_is_network_active = isset( $sitewide_plugins[ $bp_classic_plugin_basename ] );
+
+			// BP & BP Classic need to be activated the same way in Multisite configs.
+			if ( self::$network_config->bp_classic_is_network_active !== self::$network_config->bp_is_network_active ) {
+				self::$network_config->same = 'no';
+				return false;
+			} else {
+				self::$network_config->same = 'yes';
+			}
 		}
 
 		if ( ! $is_buddypress_supported ) {
@@ -184,7 +208,11 @@ final class BP_Classic {
 	 * @since 1.0.0
 	 */
 	public static function admin_notice() {
-		if ( self::is_buddypress_supported() ) {
+		if ( ! function_exists( 'buddypress' ) || self::is_buddypress_supported() ) {
+			return false;
+		}
+
+		if ( 'network_admin_notices' === current_action() && empty( self::$network_config->bp_classic_is_network_active ) ) {
 			return false;
 		}
 
@@ -199,6 +227,13 @@ final class BP_Classic {
 					bp_get_version() // phpcs:ignore
 				)
 			);
+
+			if ( isset( self::$network_config->same ) && 'no' === self::$network_config->same ) {
+				printf(
+					'<div class="notice notice-error is-dismissible"><p>%s</p></div>',
+					esc_html__( 'Please, make sure to activate BP Classic at the network level, just like BuddyPress is.', 'bp-classic' )
+				);
+			}
 
 			set_site_transient( 'bp_classic_show_notice', true, WEEK_IN_SECONDS );
 		}
@@ -331,6 +366,7 @@ function bp_classic() {
 add_action( 'bp_loaded', 'bp_classic', -1 );
 
 // Displays a notice to inform BP Classic needs to be activated after BuddyPress.
+add_action( 'network_admin_notices', array( 'BP_Classic', 'admin_notice' ) );
 add_action( 'admin_notices', array( 'BP_Classic', 'admin_notice' ) );
 
 // Eventually registers the BP Default theme directory.
