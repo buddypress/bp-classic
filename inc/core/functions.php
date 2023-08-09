@@ -587,5 +587,57 @@ function bp_core_get_user_domain( $user_id = 0, $user_nicename = false, $user_lo
  *                 False otherwise.
  */
 function bp_do_register_theme_directory() {
-	return BP_Classic::do_register_theme_directory();
+	$register = false;
+
+	/*
+	 * If bp-default exists in another theme directory, bail.
+	 * This ensures that the version of bp-default in the regular themes
+	 * directory will always take precedence, as part of a migration away
+	 * from the version packaged with BuddyPress.
+	 */
+	foreach ( array_values( (array) $GLOBALS['wp_theme_directories'] ) as $directory ) {
+		if ( is_dir( $directory . '/bp-default' ) ) {
+			return $register;
+		}
+	}
+
+	// If the current theme is bp-default (or a bp-default child), BP should register its directory.
+	$register = 'bp-default' === get_stylesheet() || 'bp-default' === get_template();
+
+	// Legacy sites continue to have the theme registered.
+	if ( empty( $register ) && ( 1 === (int) get_site_option( '_bp_retain_bp_default' ) ) ) {
+		$register = true;
+	}
+
+	/**
+	 * Filters whether BuddyPress should register the bp-themes directory.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param bool $register If bp-themes should be registered.
+	 */
+	return apply_filters( 'bp_do_register_theme_directory', $register );
 }
+
+/**
+ * Set up BuddyPress's legacy theme directory.
+ *
+ * BuddyPress is no more including BP Default. This plugin
+ * is there to provide backward compatibility to BuddyPress
+ * setups still using this deprecated theme.
+ *
+ * @since 1.1.0
+ */
+function bp_classic_register_themes_directory() {
+	if ( ! bp_do_register_theme_directory() ) {
+		return;
+	}
+
+	$bp = buddypress();
+
+	$bp->old_themes_dir = bp_classic_get_themes_dir();
+	$bp->old_themes_url = bp_classic_get_themes_url();
+
+	register_theme_directory( $bp->old_themes_dir );
+}
+add_action( 'bp_register_theme_directory', 'bp_classic_register_themes_directory', 1 );

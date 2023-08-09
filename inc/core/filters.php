@@ -52,7 +52,7 @@ function bp_register_theme_directory() {
 	 */
 	do_action( 'bp_register_theme_directory' );
 }
-add_action( 'bp_loaded', 'bp_register_theme_directory', 14 );
+add_action( 'bp_loaded', 'bp_register_theme_directory', 4 );
 
 /**
  * If the BP Classic is symlinked the Theme Root URI might not be set the right way.
