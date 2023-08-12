@@ -616,7 +616,26 @@ function bp_do_register_theme_directory() {
 	 *
 	 * @param bool $register If bp-themes should be registered.
 	 */
-	return apply_filters( 'bp_do_register_theme_directory', $register );
+	$register_theme = apply_filters( 'bp_do_register_theme_directory', $register );
+
+	/*
+	 * In case the BP Default theme was active in BuddyPress < 12.0.0, it's required
+	 * to update template and eventually stylesheet root options to keep BP Default
+	 * as the active theme safely.
+	 */
+	if ( $register_theme && false === strpos( get_option( 'template_root', '' ), '/plugins/bp-classic/themes' ) ) {
+		$theme_root = str_replace( content_url(), '', bp_classic_get_themes_url() );
+
+		if ( 'bp-default' === get_template() ) {
+			update_option( 'template_root', $theme_root );
+		}
+
+		if ( 'bp-default' === get_stylesheet() ) {
+			update_option( 'stylesheet_root', $theme_root );
+		}
+	}
+
+	return $register_theme;
 }
 
 /**
