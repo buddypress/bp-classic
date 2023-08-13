@@ -269,73 +269,6 @@ final class BP_Classic {
 	}
 
 	/**
-	 * Determine whether BuddyPress should register the `themes` directory.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return boolean True if the `themes` directory should be registered.
-	 *                 False otherwise.
-	 */
-	public static function do_register_theme_directory() {
-		$register = false;
-
-		if ( ! self::is_buddypress_supported() ) {
-			return $register;
-		}
-
-		/*
-		 * If bp-default exists in another theme directory, bail.
-		 * This ensures that the version of bp-default in the regular themes
-		 * directory will always take precedence, as part of a migration away
-		 * from the version packaged with BuddyPress.
-		 */
-		foreach ( array_values( (array) $GLOBALS['wp_theme_directories'] ) as $directory ) {
-			if ( is_dir( $directory . '/bp-default' ) ) {
-				return $register;
-			}
-		}
-
-		// If the current theme is bp-default (or a bp-default child), BP should register its directory.
-		$register = 'bp-default' === get_stylesheet() || 'bp-default' === get_template();
-
-		// Legacy sites continue to have the theme registered.
-		if ( empty( $register ) && ( 1 === (int) get_site_option( '_bp_retain_bp_default' ) ) ) {
-			$register = true;
-		}
-
-		/**
-		 * Filters whether BuddyPress should register the bp-themes directory.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param bool $register If bp-themes should be registered.
-		 */
-		return apply_filters( 'bp_do_register_theme_directory', $register );
-	}
-
-	/**
-	 * Set up BuddyPress's legacy theme directory.
-	 *
-	 * BuddyPress is no more including BP Default. This plugin
-	 * is there to provide backward compatibility to BuddyPress
-	 * setups still using this deprecated theme.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param BuddyPress $bp The main BuddyPress instance.
-	 */
-	public static function register_theme_directory( $bp ) {
-		if ( ! self::do_register_theme_directory() ) {
-			return;
-		}
-
-		$bp->old_themes_dir = plugin_dir_path( __FILE__ ) . 'themes';
-		$bp->old_themes_url = plugins_url( 'themes', __FILE__ );
-
-		register_theme_directory( $bp->old_themes_dir );
-	}
-
-	/**
 	 * Return an instance of this class.
 	 *
 	 * @since 1.0.0
@@ -374,9 +307,6 @@ add_action( 'bp_loaded', 'bp_classic', -1 );
 // Displays a notice to inform BP Classic needs to be activated after BuddyPress.
 add_action( 'network_admin_notices', array( 'BP_Classic', 'admin_notice' ) );
 add_action( 'admin_notices', array( 'BP_Classic', 'admin_notice' ) );
-
-// Eventually registers the BP Default theme directory.
-add_action( 'bp_after_setup_actions', array( 'BP_Classic', 'register_theme_directory' ) );
 
 /*
  * Use Activation and Deactivation to switch directory pages post type between WP pages
