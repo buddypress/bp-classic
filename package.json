@@ -1,6 +1,6 @@
 {
   "name": "bp-classic",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "BuddyPress Classic backward compatibility plugin.",
   "scripts": {
     "bpdefault": "svn export --force https://github.com/buddypress/BP-Default.git/branches/prepare/bp-classic-moving  themes/bp-default",
