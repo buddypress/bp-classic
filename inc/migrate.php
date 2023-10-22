@@ -68,7 +68,9 @@ function bp_classic_switch_directory_post_type( $post_type = '' ) {
 	foreach ( $nav_menus as $nav_menu ) {
 		$items = wp_get_nav_menu_items( $nav_menu->term_id );
 		foreach ( $items as $item ) {
-			if ( $old_post_type !== $item->object || ! in_array( $item->object_id, $nav_menu_item_ids, true ) ) {
+			$item_object_id = (int) $item->object_id;
+
+			if ( $old_post_type !== $item->object || ! in_array( $item_object_id, $nav_menu_item_ids, true ) ) {
 				continue;
 			}
 
@@ -77,7 +79,7 @@ function bp_classic_switch_directory_post_type( $post_type = '' ) {
 				$item->ID,
 				array(
 					'menu-item-db-id'       => $item->db_id,
-					'menu-item-object-id'   => $item->object_id,
+					'menu-item-object-id'   => $item_object_id,
 					'menu-item-object'      => $post_type,
 					'menu-item-parent-id'   => $item->menu_item_parent,
 					'menu-item-position'    => $item->menu_order,
