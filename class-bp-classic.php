@@ -277,13 +277,13 @@ final class BP_Classic {
 	 *                          False if BuddyPress is not supported.
 	 */
 	public static function start() {
-		// This plugin is only usable with BuddyPress.
-		if ( ! self::is_buddypress_supported() ) {
-			return false;
-		}
-
 		// If the single instance hasn't been set, set it now.
 		if ( null === self::$instance ) {
+			// This plugin is only usable with BuddyPress.
+			if ( ! self::is_buddypress_supported() ) {
+				return false;
+			}
+
 			self::$instance = new self();
 		}
 
