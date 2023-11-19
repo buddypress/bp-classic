@@ -6,8 +6,8 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 5.8
 Requires PHP: 5.6
-Tested up to: 6.3
-Stable tag: 1.1.0
+Tested up to: 6.4
+Stable tag: 1.2.0
 
 BP Classic, a BuddyPress (12.0.0 & up) backwards compatibility add-on
 
@@ -65,6 +65,10 @@ If you would like to provide monetary support to the BP Classic or BuddyPress pl
 
 == Upgrade Notice ==
 
+= 1.2.0 =
+
+No specific upgrade tasks needed.
+
 = 1.1.0 =
 
 No specific upgrade tasks needed.
@@ -74,6 +78,11 @@ No specific upgrade tasks needed.
 Initial version of the plugin, no upgrade needed.
 
 == Changelog ==
+
+= 1.2.0 =
+
+- Avoid a type mismatch issue during the migration process (See [#27](https://github.com/buddypress/bp-classic/issues/27)).
+- Only check once BuddyPress current config & version are ok (See [#28](https://github.com/buddypress/bp-classic/issues/28)).
 
 = 1.1.0 =
 
