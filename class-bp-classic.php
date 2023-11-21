@@ -178,8 +178,15 @@ final class BP_Classic {
 
 			$bp_classic_plugin_basename = plugin_basename( __FILE__ );
 
-			// Informs about whether BuddyPress is network activated or not.
-			self::$network_config->bp_classic_is_network_active = isset( $sitewide_plugins[ $bp_classic_plugin_basename ] );
+			// Informs about whether BP Classic is network activated or not.
+			$bp_classic_is_network_active = isset( $sitewide_plugins[ $bp_classic_plugin_basename ] );
+
+			// If BP Classic is being activated on the network set it as network activated to run the migration script.
+			if ( ! $bp_classic_is_network_active && is_network_admin() && 'activate_bp-classic/class-bp-classic.php' === current_action() ) {
+				$bp_classic_is_network_active = true;
+			}
+
+			self::$network_config->bp_classic_is_network_active = $bp_classic_is_network_active;
 
 			// BP & BP Classic need to be activated the same way in Multisite configs.
 			if ( self::$network_config->bp_classic_is_network_active !== self::$network_config->bp_is_network_active ) {
