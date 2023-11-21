@@ -1,5 +1,28 @@
 # Change Log
 
+## 1.2.0
+
+_Requires WordPress 5.8_
+_Tested up to WordPress 6.4_
+_Requires BuddyPress 12.0_
+_Tested up to BuddyPress 12.0_
+
+### Description
+
+This is the second maintenance release of the the BP Classic Add-on. It brings to BuddyPress (12.0.0 & up) backwards compatibility code for plugins & themes not ready yet for the BP Rewrites API.
+
+### Changes
+
+- Avoid a type mismatch issue during the migration process (See [#27](https://github.com/buddypress/bp-classic/issues/27)).
+- Only check once BuddyPress current config & version are ok (See [#28](https://github.com/buddypress/bp-classic/issues/28)).
+- Make sure the migration script is run on Multisite (See [#31](https://github.com/buddypress/bp-classic/issues/31)).
+
+## Props
+
+@imath, @emaralive.
+
+---
+
 ## 1.1.0
 
 _Requires WordPress 5.8_
