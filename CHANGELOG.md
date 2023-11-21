@@ -15,6 +15,7 @@ This is the second maintenance release of the the BP Classic Add-on. It brings t
 
 - Avoid a type mismatch issue during the migration process (See [#27](https://github.com/buddypress/bp-classic/issues/27)).
 - Only check once BuddyPress current config & version are ok (See [#28](https://github.com/buddypress/bp-classic/issues/28)).
+- Make sure the migration script is run on Multisite (See [#31](https://github.com/buddypress/bp-classic/issues/31)).
 
 ## Props
 

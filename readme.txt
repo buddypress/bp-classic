@@ -83,6 +83,7 @@ Initial version of the plugin, no upgrade needed.
 
 - Avoid a type mismatch issue during the migration process (See [#27](https://github.com/buddypress/bp-classic/issues/27)).
 - Only check once BuddyPress current config & version are ok (See [#28](https://github.com/buddypress/bp-classic/issues/28)).
+- Make sure the migration script is run on Multisite (See [#31](https://github.com/buddypress/bp-classic/issues/31)).
 
 = 1.1.0 =
 
