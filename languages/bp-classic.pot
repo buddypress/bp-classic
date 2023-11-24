@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-21T16:46:22+00:00\n"
+"POT-Creation-Date: 2023-11-24T01:27:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: bp-classic\n"
@@ -35,15 +35,15 @@ msgid "https://buddypress.org"
 msgstr ""
 
 #. translators: %s. is current version of BuddyPress.
-#: class-bp-classic.php:226
+#: class-bp-classic.php:233
 msgid "Friendly reminder: BP Classic only runs when BuddyPress version is 12.0.0 (or up). Your current version of BuddyPress is: %s. Unless you activated BP Classic in anticipation of the 12.0.0 upgrade, you can deactivate it. This information will be shown regularly (every week) and as long as your BuddyPress version is lower than 12.0.0."
 msgstr ""
 
-#: class-bp-classic.php:232
+#: class-bp-classic.php:239
 msgid "Please, make sure to activate BP Classic at the network level, just like BuddyPress is."
 msgstr ""
 
-#: class-bp-classic.php:235
+#: class-bp-classic.php:242
 msgid "Please, make sure to activate BP Classic on the same site of the network BuddyPress is activated on."
 msgstr ""
 
