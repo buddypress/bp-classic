@@ -1,6 +1,6 @@
 {
   "name": "bp-classic",
-  "version": "1.3.0-alpha",
+  "version": "1.3.0",
   "description": "BuddyPress Classic backward compatibility plugin.",
   "scripts": {
     "bpdefault": "rm -rf archive.zip themes/bp-default && curl -L -o 'archive.zip' https://github.com/buddypress/BP-Default/archive/prepare/bp-classic-moving.zip && unzip -qq archive.zip -d themes && mv themes/BP-Default-prepare-bp-classic-moving themes/bp-default",
