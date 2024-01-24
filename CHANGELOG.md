@@ -1,5 +1,29 @@
 # Change Log
 
+## 1.3.0
+
+_Requires WordPress 5.8_
+_Tested up to WordPress 6.4_
+_Requires BuddyPress 12.0_
+_Tested up to BuddyPress 12.2_
+
+### Description
+
+This is the third maintenance release of the the BP Classic Add-on. It brings to BuddyPress (12.0.0 & up) backwards compatibility code for plugins & themes not ready yet for the BP Rewrites API.
+
+### Changes
+
+- Switch to BP root blog when migrating directories if necessary (See [#33](https://github.com/buddypress/bp-classic/pull/33)).
+- Make sure Tooltips are used in Legacy widgets (See [#35](https://github.com/buddypress/bp-classic/issues/35) & [#39](https://github.com/buddypress/bp-classic/issues/39)).
+- Use a npm script to get BP Default (See [#37](https://github.com/buddypress/bp-classic/issues/37)).
+- Improve how we check BP Nouveau is the current BP Template Pack in use (See [#41](https://github.com/buddypress/bp-classic/issues/41))
+
+## Props
+
+@imath
+
+---
+
 ## 1.2.0
 
 _Requires WordPress 5.8_
