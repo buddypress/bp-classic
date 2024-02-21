@@ -7,7 +7,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 5.8
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 
 BP Classic, a BuddyPress (12.0.0 & up) backwards compatibility add-on
 
@@ -89,7 +89,7 @@ Initial version of the plugin, no upgrade needed.
 
 = 1.4.0 =
 
-- Make sure bbPress topics/replies pagination is behaving as expected with BuddyPress 12.0 & up (See [#33](https://github.com/buddypress/bp-classic/pull/44)).
+- Make sure bbPress topics/replies pagination is behaving as expected with BuddyPress 12.0 & up (See [#44](https://github.com/buddypress/bp-classic/pull/44)).
 
 = 1.3.0 =
 

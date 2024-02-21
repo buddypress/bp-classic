@@ -13,7 +13,7 @@ This is the fourth maintenance release of the the BP Classic Add-on. It brings t
 
 ### Changes
 
-- Make sure bbPress topics/replies pagination is behaving as expected with BuddyPress 12.0 & up (See [#33](https://github.com/buddypress/bp-classic/pull/44)).
+- Make sure bbPress topics/replies pagination is behaving as expected with BuddyPress 12.0 & up (See [#44](https://github.com/buddypress/bp-classic/pull/44)).
 
 ## Props
 
