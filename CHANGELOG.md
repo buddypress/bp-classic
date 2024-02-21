@@ -1,5 +1,26 @@
 # Change Log
 
+## 1.4.0
+
+_Requires WordPress 5.8_
+_Tested up to WordPress 6.4_
+_Requires BuddyPress 12.0_
+_Tested up to BuddyPress 12.2_
+
+### Description
+
+This is the fourth maintenance release of the the BP Classic Add-on. It brings to BuddyPress (12.0.0 & up) backwards compatibility code for plugins & themes not ready yet for the BP Rewrites API.
+
+### Changes
+
+- Make sure bbPress topics/replies pagination is behaving as expected with BuddyPress 12.0 & up (See [#33](https://github.com/buddypress/bp-classic/pull/44)).
+
+## Props
+
+@imath
+
+---
+
 ## 1.3.0
 
 _Requires WordPress 5.8_

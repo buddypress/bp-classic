@@ -65,6 +65,10 @@ If you would like to provide monetary support to the BP Classic or BuddyPress pl
 
 == Upgrade Notice ==
 
+= 1.4.0 =
+
+No specific upgrade tasks needed.
+
 = 1.3.0 =
 
 No specific upgrade tasks needed.
@@ -82,6 +86,10 @@ No specific upgrade tasks needed.
 Initial version of the plugin, no upgrade needed.
 
 == Changelog ==
+
+= 1.4.0 =
+
+- Make sure bbPress topics/replies pagination is behaving as expected with BuddyPress 12.0 & up (See [#33](https://github.com/buddypress/bp-classic/pull/44)).
 
 = 1.3.0 =
 
