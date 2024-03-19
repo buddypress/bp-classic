@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 5.8
 Requires PHP: 5.6
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 1.4.0
 
 BP Classic, a BuddyPress (12.0.0 & up) backwards compatibility add-on
