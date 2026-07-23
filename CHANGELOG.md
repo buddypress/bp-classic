@@ -1,5 +1,26 @@
 # Change Log
 
+## 1.4.1
+
+_Requires WordPress 5.8_
+_Tested up to WordPress 7.0_
+_Requires BuddyPress 12.0_
+_Tested up to BuddyPress 14.5_
+
+### Description
+
+This is a version bump release of the the BP Classic Add-on. It brings to BuddyPress (12.0.0 & up) backwards compatibility code for plugins & themes not ready yet for the BP Rewrites API.
+
+### Changes
+
+- N/A version bump only.
+
+## Props
+
+@emaralive
+
+---
+
 ## 1.4.0
 
 _Requires WordPress 5.8_

@@ -1,10 +1,11 @@
 {
   "name": "bp-classic",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "BuddyPress Classic backward compatibility plugin.",
   "scripts": {
     "bpdefault": "rm -rf archive.zip themes/bp-default && curl -L -o 'archive.zip' https://github.com/buddypress/BP-Default/archive/master.zip && unzip -qq archive.zip -d themes && mv themes/BP-Default-master themes/bp-default",
-    "pot": "wp i18n make-pot . --exclude=\".phpcs,node_modules,tests,vendor\" languages/bp-classic.pot --headers='{\"Project-Id-Version\": \"BP Classic\", \"Report-Msgid-Bugs-To\": \"https://github.com/buddypress/bp-classic/issues\", \"Last-Translator\": \"JOHN JAMES JACOBY <jjj@buddypress.org>\", \"Language-Team\": \"ENGLISH <jjj@buddypress.org>\"}'"
+    "pot": "wp i18n make-pot . --exclude=\".phpcs,node_modules,tests,vendor,build\" languages/bp-classic.pot --headers='{\"Project-Id-Version\": \"BP Classic\", \"Report-Msgid-Bugs-To\": \"https://github.com/buddypress/bp-classic/issues\", \"Last-Translator\": \"JOHN JAMES JACOBY <jjj@buddypress.org>\", \"Language-Team\": \"ENGLISH <jjj@buddypress.org>\"}'",
+    "build-classic": "rm -rf build && mkdir build && cp -r class-bp-classic.php readme.txt inc themes languages build"
   },
   "repository": {
     "type": "git",
