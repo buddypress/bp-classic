@@ -45,6 +45,9 @@ function bp_classic_switch_directory_post_type( $post_type = '' ) {
 	);
 
 	if ( ! $directory_pages ) {
+		if ( $needs_switch ) {
+			restore_current_blog();
+		}
 		return;
 	}
 

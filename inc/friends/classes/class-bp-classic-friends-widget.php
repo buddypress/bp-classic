@@ -112,10 +112,10 @@ class BP_Classic_Friends_Widget extends WP_Widget {
 		?>
 
 		<?php if ( bp_has_members( $members_args ) ) : ?>
-			<div class="item-options" id="friends-list-options">
-				<a href="<?php bp_members_directory_permalink(); ?>" id="newest-friends" class="<?php ( 'newest' === $instance['friend_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Newest', 'bp-classic' ); ?></a>
-				| <a href="<?php bp_members_directory_permalink(); ?>" id="recently-active-friends" class="<?php ( 'active' === $instance['friend_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Active', 'bp-classic' ); ?></a>
-				| <a href="<?php bp_members_directory_permalink(); ?>" id="popular-friends" class="<?php ( 'popular' === $instance['friend_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
+			<div class="item-options" id="friends-list-options" role="tablist">
+				<a href="<?php bp_members_directory_permalink(); ?>" id="newest-friends" class="<?php echo ( 'newest' === $instance['friend_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'newest' === $instance['friend_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Newest', 'bp-classic' ); ?></a>
+				| <a href="<?php bp_members_directory_permalink(); ?>" id="recently-active-friends" class="<?php echo ( 'active' === $instance['friend_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'active' === $instance['friend_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Active', 'bp-classic' ); ?></a>
+				| <a href="<?php bp_members_directory_permalink(); ?>" id="popular-friends" class="<?php echo ( 'popular' === $instance['friend_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'popular' === $instance['friend_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
 			</div>
 
 			<ul id="friends-list" class="item-list">

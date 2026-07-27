@@ -49,8 +49,12 @@ function bp_classic_inject_widget_css_class( $params ) {
 
 	$widget_id = $params[0]['widget_id'];
 
-	// If callback isn't an array, bail.
-	if ( false === is_array( $wp_registered_widgets[ $widget_id ]['callback'] ) ) {
+	// If callback isn't an array or first element is not an object with id_base, bail.
+	if (
+		! is_array( $wp_registered_widgets[ $widget_id ]['callback'] ) ||
+		! is_object( $wp_registered_widgets[ $widget_id ]['callback'][0] ) ||
+		! isset( $wp_registered_widgets[ $widget_id ]['callback'][0]->id_base )
+	) {
 		return $params;
 	}
 

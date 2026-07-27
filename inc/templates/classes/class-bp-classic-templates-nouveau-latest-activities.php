@@ -156,7 +156,8 @@ class BP_Classic_Templates_Nouveau_Latest_Activities extends WP_Widget {
 
 		$instance['type'] = maybe_serialize( array( 'activity_update' ) );
 		if ( ! empty( $new_instance['type'] ) ) {
-			$instance['type'] = maybe_serialize( $new_instance['type'] );
+			$clean_type       = array_map( 'sanitize_key', (array) $new_instance['type'] );
+			$instance['type'] = maybe_serialize( $clean_type );
 		}
 
 		return $instance;
