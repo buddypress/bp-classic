@@ -88,7 +88,11 @@ final class BP_Classic {
 		}
 
 		$name_parts = explode( '-', $name );
-		$component  = $name_parts[2];
+		if ( ! isset( $name_parts[2] ) ) {
+			return;
+		}
+
+		$component = $name_parts[2];
 
 		$path = plugin_dir_path( __FILE__ ) . "inc/{$component}/classes/class-{$name}.php";
 

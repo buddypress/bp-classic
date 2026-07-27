@@ -123,14 +123,14 @@ class BP_Classic_Members_Widget extends WP_Widget {
 
 		<?php if ( bp_has_members( $members_args ) ) : ?>
 
-			<div class="item-options" id="members-list-options">
-				<a href="<?php bp_members_directory_permalink(); ?>" id="newest-members" class="<?php ( 'newest' === $settings['member_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Newest', 'bp-classic' ); ?></a>
+			<div class="item-options" id="members-list-options" role="tablist">
+				<a href="<?php bp_members_directory_permalink(); ?>" id="newest-members" class="<?php echo ( 'newest' === $settings['member_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'newest' === $settings['member_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Newest', 'bp-classic' ); ?></a>
 				<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
-				<a href="<?php bp_members_directory_permalink(); ?>" id="recently-active-members" class="<?php ( 'active' === $settings['member_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Active', 'bp-classic' ); ?></a>
+				<a href="<?php bp_members_directory_permalink(); ?>" id="recently-active-members" class="<?php echo ( 'active' === $settings['member_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'active' === $settings['member_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Active', 'bp-classic' ); ?></a>
 
 				<?php if ( bp_is_active( 'friends' ) ) : ?>
 					<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
-					<a href="<?php bp_members_directory_permalink(); ?>" id="popular-members" class="<?php ( 'popular' === $settings['member_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
+					<a href="<?php bp_members_directory_permalink(); ?>" id="popular-members" class="<?php echo ( 'popular' === $settings['member_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'popular' === $settings['member_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
 				<?php endif; ?>
 
 			</div>

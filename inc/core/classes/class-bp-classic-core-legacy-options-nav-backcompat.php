@@ -37,6 +37,7 @@ class BP_Classic_Core_Legacy_Options_Nav_BackCompat extends BP_Classic_Core_Lega
 	 * @param mixed $offset Array offset.
 	 * @return BP_Classic_Core_Legacy_Nav_BackCompat
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		_doing_it_wrong(
 			'bp_nav',
@@ -77,6 +78,7 @@ class BP_Classic_Core_Legacy_Options_Nav_BackCompat extends BP_Classic_Core_Lega
 	 *
 	 * @param mixed $offset Array offset.
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		_doing_it_wrong(
 			'bp_nav',

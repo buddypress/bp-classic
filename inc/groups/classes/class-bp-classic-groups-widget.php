@@ -124,14 +124,14 @@ class BP_Classic_Groups_Widget extends WP_Widget {
 		?>
 
 		<?php if ( bp_has_groups( $group_args ) ) : ?>
-			<div class="item-options" id="groups-list-options">
-				<a href="<?php bp_groups_directory_url(); ?>" id="newest-groups" class="<?php ( 'newest' === $instance['group_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Newest', 'bp-classic' ); ?></a>
+			<div class="item-options" id="groups-list-options" role="tablist">
+				<a href="<?php bp_groups_directory_url(); ?>" id="newest-groups" class="<?php echo ( 'newest' === $instance['group_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'newest' === $instance['group_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Newest', 'bp-classic' ); ?></a>
 				<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
-				<a href="<?php bp_groups_directory_url(); ?>" id="recently-active-groups" class="<?php ( 'active' === $instance['group_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Active', 'bp-classic' ); ?></a>
+				<a href="<?php bp_groups_directory_url(); ?>" id="recently-active-groups" class="<?php echo ( 'active' === $instance['group_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'active' === $instance['group_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Active', 'bp-classic' ); ?></a>
 				<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
-				<a href="<?php bp_groups_directory_url(); ?>" id="popular-groups" class="<?php ( 'popular' === $instance['group_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
+				<a href="<?php bp_groups_directory_url(); ?>" id="popular-groups" class="<?php echo ( 'popular' === $instance['group_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'popular' === $instance['group_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Popular', 'bp-classic' ); ?></a>
 				<span class="bp-separator" role="separator"><?php echo esc_html( $separator ); ?></span>
-				<a href="<?php bp_groups_directory_url(); ?>" id="alphabetical-groups" class="<?php ( 'alphabetical' === $instance['group_default'] ) ? 'selected' : ''; ?>"><?php esc_html_e( 'Alphabetical', 'bp-classic' ); ?></a>
+				<a href="<?php bp_groups_directory_url(); ?>" id="alphabetical-groups" class="<?php echo ( 'alphabetical' === $instance['group_default'] ) ? 'selected' : ''; ?>" role="tab" aria-selected="<?php echo ( 'alphabetical' === $instance['group_default'] ) ? 'true' : 'false'; ?>"><?php esc_html_e( 'Alphabetical', 'bp-classic' ); ?></a>
 			</div>
 
 			<ul id="groups-list" class="item-list" aria-live="polite" aria-relevant="all" aria-atomic="true">

@@ -191,7 +191,7 @@ class BP_Classic_Blogs_Recent_Posts_Widget extends WP_Widget {
 		?>
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html_x( 'Title:', 'Label for the Title field of the Recent Networkwide Posts widget', 'bp-classic' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%;" /></label></p>
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'link_title' ) ); ?>"><input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'link_title' ) ); ?>" value="1" <?php checked( $link_title ); ?> /> <?php esc_html_e( 'Link widget title to Blogs directory', 'bp-classic' ); ?></label></p>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'link_title' ) ); ?>"><input type="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'link_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'link_title' ) ); ?>" value="1" <?php checked( $link_title ); ?> /> <?php esc_html_e( 'Link widget title to Blogs directory', 'bp-classic' ); ?></label></p>
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'max_posts' ) ); ?>"><?php esc_html_e( 'Max posts to show:', 'bp-classic' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max_posts' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max_posts' ) ); ?>" type="number" min="1" max="<?php echo esc_attr( $max_limit ); ?>" value="<?php echo esc_attr( $max_posts ); ?>" style="width: 30%" /></label></p>
 		<?php
 	}
